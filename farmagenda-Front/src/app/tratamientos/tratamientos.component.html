@@ -1,0 +1,80 @@
+<div class="container-fluid px-10">
+    <div class="flex justify-between items-center my-5">
+        <h2 class="font-bold text-3xl uppercase">Mostrando tratamientos de {{ persona.nombre }}</h2>
+        <button *ngIf="!addTratamiento" (click)="toggleShowAddTratamiento()" class="btn-add">AÑADIR
+            TRATAMIENTO</button>
+        <button *ngIf="addTratamiento" (click)="toggleShowAddTratamiento()" class="btn-cancel">CANCELAR</button>
+    </div>
+    <div class="flex my-4" *ngIf="!addTratamiento">
+        <div *ngFor="let tratamiento of tratamientos"
+            class="p-4 text-xl text-slate-200 rounded-md bg-purple-700 border-black border-2">
+            <p>Id Medicamento: {{ tratamiento.id.idmedicamento }}</p>
+            <p>Id Paciente: {{ tratamiento.id.idpaciente }}</p>
+            <p>Paciente: {{ tratamiento.pacienteNombre }}</p>
+            <p>Intervalo Diario: {{ tratamiento.intervaloDiario }}</p>
+            <p>Primera Toma: {{ tratamiento.primeraToma }}</p>
+        </div>
+    </div>
+    <div class="flex flex-col gap-10" *ngIf="addTratamiento">
+        <div>
+            <h3 class="text-2xl">Selecciona el medicamento</h3>
+            <div class="flex gap-3 p-5 items-center">
+                <div class="flex gap-3 p-5 items-center">
+                    <label for="nombreMed">Introduzca el nombre del medicamento</label>
+                    <input type="text" name="nombreMed" [(ngModel)]="nombreMed" (input)="onInputChange()"
+                        class="border border-black rounded p-1">
+                </div>
+                <div class="flex gap-3 p-5 items-center">
+                    <label for="labMed">Introduzca el laboratorio del medicamento</label>
+                    <input type="text" name="labMed" [(ngModel)]="labMed" (input)="onInputChange()"
+                        class="border border-black rounded p-1">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div *ngFor="let medicamento of medicamentos"
+                    class="p-4 m-2 text-xl text-slate-200 rounded-md bg-gray-500 border-black border-2 flex flex-col gap-5">
+                    <!--[ngClass]="{'p-4 m-2 text-xl text-slate-200 rounded-md bg-gray-500 border-black border-2 flex flex-col gap-5': true, 'bg-gray-400': medicamento === medSeleccionado}">-->
+                    <p class="text-center">{{ medicamento.descripcion }}</p>
+                    <div class="flex gap-2">
+                        <img src="{{foto}}" alt="{{medicamento.nombre}}_img" *ngFor="let foto of medicamento.fotos">
+                    </div>
+                    <p>Nregistro: {{ medicamento.nregistro }}</p>
+                    <p>Nombre: {{ medicamento.nombre }}</p>
+                    <p>Dosis: {{ medicamento.dosis }}</p>
+                    <p>Labtitular: {{ medicamento.labtitular }}</p>
+                    <p>Forma Farmaceutica Simplificada: {{ medicamento.ffs }}</p>
+                    <p *ngFor="let via of medicamento.administracion">Administracion: {{ via }}</p>
+                    <div *ngFor="let doc of medicamento.docs">
+                        <p>url: {{ doc.url }}</p>
+                        <p>urlHtml: {{ doc.urlHtml }}</p>
+                    </div>
+                    <button class="btn-select mt-auto" (click)="toggleSelectMed(medicamento)"
+                        *ngIf="medicamento !== medSeleccionado">SELECCIONAR</button>
+                    <button class="btn-cancel mt-auto" (click)="toggleDeselectMed()"
+                        *ngIf="medicamento === medSeleccionado">CANCELAR SELECCION</button>
+                </div>
+            </div>
+            <div *ngIf="medicamentos.length <= 0 && (nombreMed !== '' || labMed !== '')">
+                <h2 class="text-lg text-red-500">No se han encontrado medicamentos que concuerden con los parametros
+                    introducidos</h2>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-10">
+            <div class="md:w-1/2 flex flex-col">
+                <h3 class="text-2xl">Indique la frecuencia entre tomas</h3>
+                <label for="numeroSeleccionado">Con que frecuencia toma la pastilla diariamente</label>
+                <!--<input name="numeroSeleccionado" type="number" [(ngModel)]="numeroSeleccionado" class="border-1">-->
+                <select [(ngModel)]="numeroSeleccionado" class="w-1/6 text-center">
+                    <option [value]="24">24</option>
+                    <option [value]="12">12</option>
+                    <option [value]="8">8</option>
+                    <option [value]="6">6</option>
+                </select>
+            </div>
+            <div class="md:w-1/2">
+                <h3 class="text-2xl">Indique la hora de la primera toma</h3>
+                <input name="horaSeleccionada" type="time" [(ngModel)]="horaSeleccionada">
+            </div>
+        </div>
+    </div>
+</div>
