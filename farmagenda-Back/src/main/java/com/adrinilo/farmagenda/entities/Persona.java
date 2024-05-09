@@ -14,7 +14,7 @@ import java.util.Set;
 public class Persona {
     @Id
     @Column(name = "idpersona", nullable = false)
-    private Long id;
+    private String id;
 
     @Size(max = 30)
     @NotNull
@@ -32,7 +32,7 @@ public class Persona {
     @OneToMany(mappedBy = "idadmin")
     private List<Administracion> administradores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "idpaciente")
+    @OneToMany(mappedBy = "id.idpaciente")
     private List<Tratamiento> tratamientos = new ArrayList<>();
 
     public List<Tratamiento> getTratamientos() {
@@ -51,11 +51,11 @@ public class Persona {
         this.administradores = administradores;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

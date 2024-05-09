@@ -39,17 +39,17 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaDTO> getPersonaById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<PersonaDTO> getPersonaById(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(personaService.getPersonaById(id));
     }
 
     @GetMapping("/{id}/administradores")
-    public ResponseEntity<List<AdministracionDTO>> getAdminByIdpaciente(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<List<AdministracionDTO>> getAdminByIdpaciente(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(adminService.getAdminByIdpaciente(id));
     }
 
     @GetMapping("/{id}/tratamientos")
-    public ResponseEntity<List<TratamientoDTO>> getTratamientosByIdpaciente(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<List<TratamientoDTO>> getTratamientosByIdpaciente(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(tratamientoService.getTratamientosByIdpaciente(id));
     }
 
@@ -60,13 +60,13 @@ public class PersonaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PersonaDTO> updatePersona(@Valid @RequestBody PersonaDTO personaDTO,
-                                                                @PathVariable(name = "id") Long id) {
+                                                                @PathVariable(name = "id") String id) {
         PersonaDTO personaResponse = personaService.updatePersona(personaDTO, id);
         return new ResponseEntity<>(personaResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePersona(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<String> deletePersona(@PathVariable(name = "id") String id) {
         personaService.deletePersona(id);
         return new ResponseEntity<>("Persona eliminada con exito", HttpStatus.OK);
     }

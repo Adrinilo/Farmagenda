@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 public class PersonaDTO implements Serializable {
-    private Long id;
+    private String id;
     @NotEmpty
     @Size(max = 10, message = "El nombre no puede tener más de 10 caracteres")
     private String nombre;
@@ -17,11 +17,11 @@ public class PersonaDTO implements Serializable {
     public PersonaDTO() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

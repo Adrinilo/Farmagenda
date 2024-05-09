@@ -25,7 +25,9 @@ public class TratamientoController {
 
     @GetMapping("/")
     public ResponseEntity<TratamientoDTO> getTratamientoById(@RequestParam(name = "idpaciente") String idPaciente, @RequestParam(name = "idmedicamento") String idMedicamento) {
-        TratamientoId tratamientoId = new TratamientoId(Long.parseLong(idPaciente), Long.parseLong(idMedicamento));
+        TratamientoId tratamientoId = new TratamientoId();
+        tratamientoId.setIdpaciente(idPaciente);
+        tratamientoId.setIdmedicamento(Long.parseLong(idMedicamento));
         return ResponseEntity.ok(tratamientoService.getTratamientoById(tratamientoId));
     }
 

@@ -13,31 +13,28 @@ public class AdministracionId implements Serializable {
     private static final long serialVersionUID = -7820500851043814111L;
     @NotNull
     @Column(name = "idadmin", nullable = false)
-    private Long idadmin;
+    private String idadmin;
 
     @NotNull
     @Column(name = "idpaciente", nullable = false)
-    private Long idpaciente;
+    private String idpaciente;
 
     public AdministracionId() {
     }
 
-    public AdministracionId(Long idadmin, Long idpaciente) {
-    }
-
-    public Long getIdadmin() {
+    public String getIdadmin() {
         return idadmin;
     }
 
-    public void setIdadmin(Long idadmin) {
+    public void setIdadmin(String idadmin) {
         this.idadmin = idadmin;
     }
 
-    public Long getIdpaciente() {
+    public String getIdpaciente() {
         return idpaciente;
     }
 
-    public void setIdpaciente(Long idpaciente) {
+    public void setIdpaciente(String idpaciente) {
         this.idpaciente = idpaciente;
     }
 

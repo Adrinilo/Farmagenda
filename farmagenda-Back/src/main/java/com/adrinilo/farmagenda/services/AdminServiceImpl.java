@@ -50,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<AdministracionDTO> getAdminByIdpaciente(Long id) {
+    public List<AdministracionDTO> getAdminByIdpaciente(String id) {
         List<Administracion> listAdministracion = adminRepository.findById_Idpaciente(id);
         List<AdministracionDTO> administraciones = listAdministracion.stream().map(administracion -> mapearDTO(administracion))
                 .collect(Collectors.toList());
@@ -91,7 +91,10 @@ public class AdminServiceImpl implements AdminService {
     // Convierte de DTO a Entidad
     private Administracion mapearEntidad(AdministracionDTO administracionDTO) {
         Administracion administracion = modelMapper.map(administracionDTO, Administracion.class);
-        administracion.setId(new AdministracionId(administracionDTO.getId().getIdadmin(), administracionDTO.getId().getIdpaciente()));
+        AdministracionId id = new AdministracionId();
+        id.setIdadmin(administracionDTO.getId().getIdadmin());
+        id.setIdpaciente(administracionDTO.getId().getIdpaciente());
+        administracion.setId(id);
         return administracion;
     }
 }

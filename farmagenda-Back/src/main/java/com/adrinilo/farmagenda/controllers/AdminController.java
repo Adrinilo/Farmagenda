@@ -25,7 +25,9 @@ public class AdminController {
 
     @GetMapping("/")
     public ResponseEntity<AdministracionDTO> getAdminById(@RequestParam(name = "idadmin") String idadmin, @RequestParam(name = "idpaciente") String idpaciente) {
-        AdministracionId administracionId = new AdministracionId(Long.parseLong(idadmin), Long.parseLong(idpaciente));
+        AdministracionId administracionId = new AdministracionId();
+        administracionId.setIdadmin(idadmin);
+        administracionId.setIdpaciente(idpaciente);
         return ResponseEntity.ok(adminService.getAdminById(administracionId));
     }
 

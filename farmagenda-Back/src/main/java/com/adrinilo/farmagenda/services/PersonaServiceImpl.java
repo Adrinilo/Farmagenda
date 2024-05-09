@@ -67,16 +67,16 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaDTO getPersonaById(Long id) {
+    public PersonaDTO getPersonaById(String id) {
         Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id.toString()));
+                .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id));
         return mapearDTO(persona);
     }
 
     @Override
-    public PersonaDTO updatePersona(PersonaDTO personaDTO, Long id) {
+    public PersonaDTO updatePersona(PersonaDTO personaDTO, String id) {
         Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id.toString()));
+                .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id));
 
         persona.setNombre(personaDTO.getNombre());
         persona.setTelefono(personaDTO.getTelefono());
@@ -87,7 +87,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public void deletePersona(Long id) {
+    public void deletePersona(String id) {
         Persona persona = personaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id.toString()));
         personaRepository.delete(persona);

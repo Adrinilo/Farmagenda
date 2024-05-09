@@ -12,10 +12,10 @@ public interface PersonaService {
 
     public PersonaResponse getAllPersonas(int pageNum, int itemsPerPage, String orderBy, String sortDir);
 
-    public PersonaDTO getPersonaById(Long id);
+    public PersonaDTO getPersonaById(String id);
 
-    public PersonaDTO updatePersona(PersonaDTO personaDTO, Long id);
+    public PersonaDTO updatePersona(PersonaDTO personaDTO, String id);
 
-    public void deletePersona(Long id);
+    public void deletePersona(String id);
 
 }

@@ -8,11 +8,8 @@ import java.time.LocalTime;
 
 public class TratamientoDTO implements Serializable {
     private TratamientoId id;
-    private String pacienteNombre;
-    @NotNull
-    private Integer intervaloDiario;
-    @NotNull
-    private LocalTime primeraToma;
+    private Integer intervalodiario;
+    private LocalTime primeratoma;
 
     public TratamientoDTO() {
     }
@@ -25,27 +22,28 @@ public class TratamientoDTO implements Serializable {
         this.id = id;
     }
 
-    public String getPacienteNombre() {
-        return pacienteNombre;
+    public Integer getIntervalodiario() {
+        return intervalodiario;
     }
 
-    public void setPacienteNombre(String pacienteNombre) {
-        this.pacienteNombre = pacienteNombre;
+    public void setIntervalodiario(Integer intervalodiario) {
+        this.intervalodiario = intervalodiario;
     }
 
-    public Integer getIntervaloDiario() {
-        return intervaloDiario;
+    public LocalTime getPrimeratoma() {
+        return primeratoma;
     }
 
-    public void setIntervaloDiario(Integer intervaloDiario) {
-        this.intervaloDiario = intervaloDiario;
+    public void setPrimeratoma(LocalTime primeratoma) {
+        this.primeratoma = primeratoma;
     }
 
-    public LocalTime getPrimeraToma() {
-        return primeraToma;
-    }
-
-    public void setPrimeraToma(LocalTime primeraToma) {
-        this.primeraToma = primeraToma;
+    @Override
+    public String toString() {
+        return "TratamientoDTO{" +
+                "id=" + id +
+                ", intervalodiario=" + intervalodiario +
+                ", primeratoma=" + primeratoma +
+                '}';
     }
 }

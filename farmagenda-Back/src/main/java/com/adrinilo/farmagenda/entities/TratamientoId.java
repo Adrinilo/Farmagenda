@@ -13,7 +13,7 @@ public class TratamientoId implements Serializable {
     private static final long serialVersionUID = 6407047049258092540L;
     @NotNull
     @Column(name = "idpaciente", nullable = false)
-    private Long idpaciente;
+    private String idpaciente;
 
     @NotNull
     @Column(name = "idmedicamento", nullable = false)
@@ -22,14 +22,11 @@ public class TratamientoId implements Serializable {
     public TratamientoId() {
     }
 
-    public TratamientoId(Long idpaciente, Long idmedicamento) {
-    }
-
-    public Long getIdpaciente() {
+    public String getIdpaciente() {
         return idpaciente;
     }
 
-    public void setIdpaciente(Long idpaciente) {
+    public void setIdpaciente(String idpaciente) {
         this.idpaciente = idpaciente;
     }
 
@@ -55,4 +52,12 @@ public class TratamientoId implements Serializable {
         return Objects.hash(idmedicamento, idpaciente);
     }
 
+
+    @Override
+    public String toString() {
+        return "TratamientoId{" +
+                "idpaciente='" + idpaciente + '\'' +
+                ", idmedicamento=" + idmedicamento +
+                '}';
+    }
 }

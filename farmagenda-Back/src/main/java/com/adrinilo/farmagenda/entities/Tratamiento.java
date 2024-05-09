@@ -10,11 +10,6 @@ public class Tratamiento {
     @EmbeddedId
     private TratamientoId id;
 
-    @MapsId("idpaciente")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idpaciente", nullable = false)
-    private Persona idpaciente;
-
     @Column(name = "intervalodiario")
     private Integer intervalodiario;
 
@@ -27,14 +22,6 @@ public class Tratamiento {
 
     public void setId(TratamientoId id) {
         this.id = id;
-    }
-
-    public Persona getIdpaciente() {
-        return idpaciente;
-    }
-
-    public void setIdpaciente(Persona idpaciente) {
-        this.idpaciente = idpaciente;
     }
 
     public Integer getIntervalodiario() {
@@ -53,4 +40,12 @@ public class Tratamiento {
         this.primeratoma = primeratoma;
     }
 
+    @Override
+    public String toString() {
+        return "Tratamiento{" +
+                "id=" + id +
+                ", intervalodiario=" + intervalodiario +
+                ", primeratoma=" + primeratoma +
+                '}';
+    }
 }

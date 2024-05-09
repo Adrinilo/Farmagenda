@@ -10,7 +10,7 @@ public interface AdminService {
     public AdministracionDTO createAdmin(AdministracionDTO administracionDTO);
     public List<AdministracionDTO> getAllAdmin();
     public AdministracionDTO getAdminById(AdministracionId id);
-    public List<AdministracionDTO> getAdminByIdpaciente(Long id);
+    public List<AdministracionDTO> getAdminByIdpaciente(String id);
     public AdministracionDTO updateAdmin(AdministracionDTO administracionDTO, AdministracionId id);
     public void deleteAdmin(AdministracionId id);
 }

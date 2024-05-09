@@ -13,7 +13,7 @@ public interface TratamientoService {
 
     public TratamientoDTO getTratamientoById(TratamientoId id);
 
-    public List<TratamientoDTO> getTratamientosByIdpaciente(Long id);
+    public List<TratamientoDTO> getTratamientosByIdpaciente(String id);
 
     public TratamientoDTO updateTratamiento(TratamientoDTO tratamientoDTO, TratamientoId id);
 
