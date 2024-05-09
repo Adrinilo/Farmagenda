@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MedResponse } from '../interfaces/medicamento.interface';
+import { MedResponse, Medicamento } from '../interfaces/medicamento.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,4 +16,10 @@ export class MedicinaService {
     const url = `${this.baseUrl}?nombre=${nombre}&laboratorio=${laboratorio}`
     return this.http.get<MedResponse>(url);
   }
+
+  getMedicamentoByNregistro(nregistro: string): Observable<Medicamento> {
+    const url = `https://cima.aemps.es/cima/rest/medicamento?nregistro=${nregistro}`
+    return this.http.get<Medicamento>(url);
+  }
+
 }

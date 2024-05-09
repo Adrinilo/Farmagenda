@@ -1,9 +1,8 @@
 import { Tratamiento } from "./tratamiento.interface";
 
 export interface Persona {
-    id: number;
+    id: string;
     nombre: string;
     telefono: string;
     email: string;
-    tratamientos: Tratamiento[];
 }

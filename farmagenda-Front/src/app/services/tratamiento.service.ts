@@ -13,7 +13,7 @@ export class TratamientoService {
   constructor(private http: HttpClient) { }
 
 
-  addTratamiento(tratamiento: any): Observable<Tratamiento> {
+  createTratamiento(tratamiento: any): Observable<Tratamiento> {
     return this.http.post<Tratamiento>(this.baseUrl, tratamiento);
   }
 }

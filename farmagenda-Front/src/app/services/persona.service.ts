@@ -13,17 +13,17 @@ export class PersonaService {
 
   constructor(private http: HttpClient) { }
 
-  getPersonaById(id: number): Observable<Persona> {
+  getPersonaById(id: string): Observable<Persona> {
     const url = `${this.baseUrl}/${id}`
     return this.http.get<Persona>(url);
   }
   
-  getTratamientos(id: number): Observable<Tratamiento[]> {
+  getTratamientos(id: string): Observable<Tratamiento[]> {
     const url = `${this.baseUrl}/${id}/tratamientos`
     return this.http.get<Tratamiento[]>(url);
   }
 
-  addPersona(persona: any): Observable<Persona> {
-    return this.http.post<any>(this.baseUrl, persona);
+  createPersona(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(this.baseUrl, persona);
   }
 }

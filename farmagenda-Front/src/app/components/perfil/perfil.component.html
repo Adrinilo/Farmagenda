@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid pt-5 pb-10 px-10">
+        <div class="flex gap-4 justify-end">
+            <button (click)="onLogout()" class="btn-logout">Cerrar Sesión</button>
+        </div>
+        <div class="flex flex-col text-2xl">
+            <p>Nombre: {{ persona.nombre }}</p>
+            <p>Email: {{ persona.email }}</p>
+            <p>Telefono: {{ persona.telefono }}</p>
+        </div>
+    </div>
+</body>
+
+</html>
