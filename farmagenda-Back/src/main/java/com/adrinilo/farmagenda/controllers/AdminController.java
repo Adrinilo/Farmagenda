@@ -1,7 +1,9 @@
 package com.adrinilo.farmagenda.controllers;
 
 import com.adrinilo.farmagenda.dto.AdministracionDTO;
+import com.adrinilo.farmagenda.dto.PersonaDTO;
 import com.adrinilo.farmagenda.entities.AdministracionId;
+import com.adrinilo.farmagenda.entities.TratamientoId;
 import com.adrinilo.farmagenda.services.AdminService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/administraciones")
+@RequestMapping("api/administracion")
 public class AdminController {
 
     @Autowired
@@ -32,7 +34,8 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<AdministracionDTO> createAdmin(@Valid @RequestBody AdministracionDTO administracionDTO) {
+    public ResponseEntity<AdministracionDTO> createAdmin(@RequestBody AdministracionDTO administracionDTO) {
+        System.out.println(administracionDTO.toString());
         return new ResponseEntity<>(adminService.createAdmin(administracionDTO), HttpStatus.CREATED);
     }
 

@@ -70,7 +70,6 @@ public class AdminServiceImpl implements AdminService {
 
         administracion.setIdadmin(admin);
         administracion.setIdpaciente(paciente);
-        administracion.setRol(administracionDTO.getRol());
 
         Administracion administracionUpdated = adminRepository.save(administracion);
         return mapearDTO(administracionUpdated);

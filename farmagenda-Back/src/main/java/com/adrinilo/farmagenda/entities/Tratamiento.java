@@ -10,8 +10,8 @@ public class Tratamiento {
     @EmbeddedId
     private TratamientoId id;
 
-    @Column(name = "intervalodiario")
-    private Integer intervalodiario;
+    @Column(name = "tomasdiarias")
+    private Integer tomasDiarias;
 
     @Column(name = "primeratoma")
     private LocalTime primeratoma;
@@ -24,12 +24,12 @@ public class Tratamiento {
         this.id = id;
     }
 
-    public Integer getIntervalodiario() {
-        return intervalodiario;
+    public Integer getTomasDiarias() {
+        return tomasDiarias;
     }
 
-    public void setIntervalodiario(Integer intervalodiario) {
-        this.intervalodiario = intervalodiario;
+    public void setTomasDiarias(Integer tomasDiarias) {
+        this.tomasDiarias = tomasDiarias;
     }
 
     public LocalTime getPrimeratoma() {
@@ -38,14 +38,5 @@ public class Tratamiento {
 
     public void setPrimeratoma(LocalTime primeratoma) {
         this.primeratoma = primeratoma;
-    }
-
-    @Override
-    public String toString() {
-        return "Tratamiento{" +
-                "id=" + id +
-                ", intervalodiario=" + intervalodiario +
-                ", primeratoma=" + primeratoma +
-                '}';
     }
 }

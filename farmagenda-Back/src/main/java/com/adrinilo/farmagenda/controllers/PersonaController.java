@@ -48,6 +48,11 @@ public class PersonaController {
         return ResponseEntity.ok(adminService.getAdminByIdpaciente(id));
     }
 
+    @GetMapping("/{id}/pacientes")
+    public ResponseEntity<List<PersonaDTO>> getPersonasACargoById(@PathVariable(name = "id") String id) {
+        return ResponseEntity.ok(personaService.getPersonasACargoById(id));
+    }
+
     @GetMapping("/{id}/tratamientos")
     public ResponseEntity<List<TratamientoDTO>> getTratamientosByIdpaciente(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(tratamientoService.getTratamientosByIdpaciente(id));

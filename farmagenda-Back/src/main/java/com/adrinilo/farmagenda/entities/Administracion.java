@@ -19,11 +19,6 @@ public class Administracion {
     @JoinColumn(name = "idpaciente", nullable = false)
     private Persona idpaciente;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "rol", nullable = false)
-    private Role rol;
-
     public AdministracionId getId() {
         return id;
     }
@@ -46,14 +41,6 @@ public class Administracion {
 
     public void setIdpaciente(Persona idpaciente) {
         this.idpaciente = idpaciente;
-    }
-
-    public Role getRol() {
-        return rol;
-    }
-
-    public void setRol(Role rol) {
-        this.rol = rol;
     }
 
 }

@@ -14,6 +14,7 @@ public class PersonaDTO implements Serializable {
     @Size(max = 255)
     private String email;
 
+
     public PersonaDTO() {
     }
 

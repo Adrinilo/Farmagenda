@@ -14,6 +14,8 @@ public interface PersonaService {
 
     public PersonaDTO getPersonaById(String id);
 
+    public List<PersonaDTO> getPersonasACargoById(String id);
+
     public PersonaDTO updatePersona(PersonaDTO personaDTO, String id);
 
     public void deletePersona(String id);

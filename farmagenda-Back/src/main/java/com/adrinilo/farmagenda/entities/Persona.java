@@ -29,11 +29,17 @@ public class Persona {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "idadmin")
-    private List<Administracion> administradores = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "administracion",
+            joinColumns = @JoinColumn(name = "idadmin", referencedColumnName = "idpersona"),
+            inverseJoinColumns = @JoinColumn(name = "idpaciente", referencedColumnName = "idpersona")
+    )
+    private List<Persona> personasACargo = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.idpaciente")
     private List<Tratamiento> tratamientos = new ArrayList<>();
+
 
     public List<Tratamiento> getTratamientos() {
         return tratamientos;
@@ -43,12 +49,12 @@ public class Persona {
         this.tratamientos = tratamientos;
     }
 
-    public List<Administracion> getAdministradores() {
-        return administradores;
+    public List<Persona> getPersonasACargo() {
+        return personasACargo;
     }
 
-    public void setAdministradores(List<Administracion> administradores) {
-        this.administradores = administradores;
+    public void setPersonasACargo(List<Persona> personasACargo) {
+        this.personasACargo = personasACargo;
     }
 
     public String getId() {

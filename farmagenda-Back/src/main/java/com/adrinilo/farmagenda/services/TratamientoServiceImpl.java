@@ -69,7 +69,7 @@ public class TratamientoServiceImpl implements TratamientoService {
         Tratamiento tratamiento = tratamientoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tratamiento", "id", id.toString()));
 
-        tratamiento.setIntervalodiario(tratamientoDTO.getIntervalodiario());
+        tratamiento.setTomasDiarias(tratamientoDTO.getTomasDiarias());
         tratamiento.setPrimeratoma(tratamientoDTO.getPrimeratoma());
 
         Tratamiento tratamientoUpdated = tratamientoRepository.save(tratamiento);
@@ -78,6 +78,7 @@ public class TratamientoServiceImpl implements TratamientoService {
 
     @Override
     public void deleteTratamiento(TratamientoId id) {
+        System.out.println(id.toString());
         Tratamiento tratamiento = tratamientoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tratamiento", "id", id.toString()));
         tratamientoRepository.delete(tratamiento);
@@ -92,14 +93,10 @@ public class TratamientoServiceImpl implements TratamientoService {
     // Convierte de DTO a Entidad
     private Tratamiento mapearEntidad(TratamientoDTO tratamientoDTO) {
         Tratamiento tratamiento = modelMapper.map(tratamientoDTO, Tratamiento.class);
-        //System.out.println(tratamientoDTO.getId().getIdmedicamento());
         TratamientoId id = new TratamientoId();
         id.setIdpaciente(tratamientoDTO.getId().getIdpaciente());
         id.setIdmedicamento(tratamientoDTO.getId().getIdmedicamento());
-        //System.out.println("Tratamientoid: "+id.toString());
         tratamiento.setId(id);
-        //System.out.println(tratamiento.getId().getIdpaciente());
-        //System.out.println(tratamiento.getId().getIdmedicamento());
         return tratamiento;
     }
 }

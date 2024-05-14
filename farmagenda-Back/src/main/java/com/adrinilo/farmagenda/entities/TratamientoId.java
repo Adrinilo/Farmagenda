@@ -51,13 +51,4 @@ public class TratamientoId implements Serializable {
     public int hashCode() {
         return Objects.hash(idmedicamento, idpaciente);
     }
-
-
-    @Override
-    public String toString() {
-        return "TratamientoId{" +
-                "idpaciente='" + idpaciente + '\'' +
-                ", idmedicamento=" + idmedicamento +
-                '}';
-    }
 }

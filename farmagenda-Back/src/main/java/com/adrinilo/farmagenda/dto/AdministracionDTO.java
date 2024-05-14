@@ -1,7 +1,6 @@
 package com.adrinilo.farmagenda.dto;
 
 import com.adrinilo.farmagenda.entities.AdministracionId;
-import com.adrinilo.farmagenda.entities.Role;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -10,8 +9,6 @@ public class AdministracionDTO implements Serializable {
     private AdministracionId id;
     private PersonaDTO idadmin;
     private PersonaDTO idpaciente;
-    @NotNull
-    private Role rol;
 
     public AdministracionDTO() {
     }
@@ -40,11 +37,12 @@ public class AdministracionDTO implements Serializable {
         this.idpaciente = idpaciente;
     }
 
-    public Role getRol() {
-        return rol;
-    }
-
-    public void setRol(Role rol) {
-        this.rol = rol;
+    @Override
+    public String toString() {
+        return "AdministracionDTO{" +
+                "id=" + id +
+                ", idadmin=" + idadmin +
+                ", idpaciente=" + idpaciente +
+                '}';
     }
 }

@@ -74,6 +74,19 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
+    public List<PersonaDTO> getPersonasACargoById(String id) {
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id));
+
+        List<Persona> personasACargo = persona.getPersonasACargo();
+
+        List<PersonaDTO> personasACargoDTO = personasACargo.stream().map(paciente -> mapearDTO(paciente))
+                .collect(Collectors.toList());
+
+        return personasACargoDTO;
+    }
+
+    @Override
     public PersonaDTO updatePersona(PersonaDTO personaDTO, String id) {
         Persona persona = personaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Persona", "id", id));
