@@ -14,7 +14,7 @@ import { ProspectoComponent } from './components/prospecto/prospecto.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroHome, heroClipboardDocumentList, heroCalendarDays, heroDocumentText } from '@ng-icons/heroicons/outline';
-import { heroUserCircleSolid } from '@ng-icons/heroicons/solid';
+import { heroUserCircleSolid, heroCogSolid } from '@ng-icons/heroicons/solid';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -22,6 +22,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { LoginComponent } from './components/login/login.component';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { RegisterPacienteComponent } from './components/register-paciente/register-paciente.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogComponent } from './components/dialogs/confirmdialog/confirmdialog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +36,7 @@ const routes: Routes = [
   { path: 'calendario', component: CalendarioComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'perfil', component: PerfilComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'register', component: RegisterComponent },
+  { path: 'register-paciente', component: RegisterPacienteComponent },
   { path: 'login', component: LoginComponent }
 ];
 
@@ -38,7 +45,8 @@ const icons = {
   heroClipboardDocumentList,
   heroDocumentText,
   heroCalendarDays,
-  heroUserCircleSolid
+  heroUserCircleSolid,
+  heroCogSolid
 };
 
 @NgModule({
@@ -51,7 +59,9 @@ const icons = {
     CalendarioComponent,
     PerfilComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterPacienteComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +72,14 @@ const icons = {
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 
 })

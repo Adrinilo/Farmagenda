@@ -7,7 +7,7 @@ export interface Tratamientoid {
 
 export interface Tratamiento {
     id: Tratamientoid;
-    intervalodiario: string;
+    tomasDiarias: string;
     primeratoma: string;
     medicamento: Medicamento;
 }

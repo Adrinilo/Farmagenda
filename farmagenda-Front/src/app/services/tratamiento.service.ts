@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tratamiento } from '../interfaces/tratamiento.interface';
+import { Tratamiento, Tratamientoid } from '../interfaces/tratamiento.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,17 @@ export class TratamientoService {
   constructor(private http: HttpClient) { }
 
 
-  createTratamiento(tratamiento: any): Observable<Tratamiento> {
+  createTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
     return this.http.post<Tratamiento>(this.baseUrl, tratamiento);
+  }
+
+  deleteTratamiento(tratamientoId: Tratamientoid): Observable<String> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: tratamientoId
+    };
+    return this.http.delete<String>(`${this.baseUrl}`, options);
   }
 }

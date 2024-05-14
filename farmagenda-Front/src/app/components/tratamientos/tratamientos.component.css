@@ -39,3 +39,47 @@
     background-color: #49ad9b;
     text-shadow: 2px 2px 4px rgb(10, 10, 10);
 }
+
+.btn-consulta {
+    background-color: #67958D;
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 0.25rem;
+    border-width: 1.5px;
+    border-color: rgb(10, 10, 10);
+}
+
+.btn-consulta:hover {
+    background-color: #9AB1AE;
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}
+
+.btn-editar {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 0.25rem;
+    border-width: 1.5px;
+    border-color: rgb(10, 10, 10);
+}
+
+.btn-editar:hover {
+    background-color: rgb(141, 141, 255);
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}
+
+.btn-delete {
+    background-color: rgb(127 29 29);
+    color: white;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 0.25rem;
+    border-color: rgb(10, 10, 10);
+}
+
+.btn-delete:hover {
+    background-color: rgb(185 28 28);
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}

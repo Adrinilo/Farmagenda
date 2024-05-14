@@ -1,6 +1,7 @@
 package com.adrinilo.farmagenda.controllers;
 
 import com.adrinilo.farmagenda.dto.TratamientoDTO;
+import com.adrinilo.farmagenda.entities.Tratamiento;
 import com.adrinilo.farmagenda.entities.TratamientoId;
 import com.adrinilo.farmagenda.services.TratamientoService;
 import jakarta.validation.Valid;
@@ -43,9 +44,11 @@ public class TratamientoController {
         return new ResponseEntity<>(tratamientoActualizado, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTratamiento(@PathVariable(name = "id") TratamientoId id) {
-        tratamientoService.deleteTratamiento(id);
-        return new ResponseEntity<>("Tratamiento eliminado con exito", HttpStatus.OK);
+    @DeleteMapping
+    public ResponseEntity<TratamientoDTO> deleteTratamiento(@RequestBody TratamientoId tratamientoId) {
+        //System.out.println(tratamientoId.toString());
+        TratamientoDTO tratamientoDTO = tratamientoService.getTratamientoById(tratamientoId);
+        tratamientoService.deleteTratamiento(tratamientoId);
+        return new ResponseEntity<>(tratamientoDTO, HttpStatus.OK);
     }
 }

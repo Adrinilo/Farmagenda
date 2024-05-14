@@ -13,7 +13,9 @@ import {
 } from '../../interfaces/medicamento.interface';
 import { MedicinaService } from '../../services/medicina.service';
 import { TratamientoService } from '../../services/tratamiento.service';
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../dialogs/confirmdialog/confirmdialog.component';
 
 @Component({
   selector: 'app-tratamientos',
@@ -28,7 +30,7 @@ export class TratamientosComponent implements OnInit {
   showForm: boolean = false;
   nombreMed: string = '';
   labMed: string = '';
-  intervaloSeleccionado: number = 0;
+  tomasSeleccionadas: number = 0;
   horaSeleccionada: string = '';
   medSeleccionado: Medicamento | undefined;
 
@@ -38,7 +40,8 @@ export class TratamientosComponent implements OnInit {
     private router: Router,
     private medicinaService: MedicinaService,
     private tratamientoService: TratamientoService,
-    private personaService: PersonaService
+    private personaService: PersonaService,
+    private dialog: MatDialog
   ) {
     const personaString = localStorage.getItem('persona');
     if (personaString) {
@@ -58,7 +61,7 @@ export class TratamientosComponent implements OnInit {
         this.tratamientos = data.map((data: Tratamiento) => {
           let tratamiento: Tratamiento = {
             id: data.id,
-            intervalodiario: data.intervalodiario,
+            tomasDiarias: data.tomasDiarias,
             primeratoma: data.primeratoma,
             medicamento: createEmptyMedicamento(),
           } as Tratamiento;
@@ -71,7 +74,7 @@ export class TratamientosComponent implements OnInit {
 
           return tratamiento;
         });
-        console.log(this.tratamientos);
+        //console.log(this.tratamientos);
       },
       error: (error) => {
         console.error('Error al obtener tratamientos:', error);
@@ -82,21 +85,16 @@ export class TratamientosComponent implements OnInit {
   getMedicamento(nregistro: string): Observable<Medicamento> {
     return this.medicinaService.getMedicamentoByNregistro(nregistro).pipe(
       map((data: any) => {
-        // Aquí puedes formatear la respuesta del servicio al tipo Medicamento
         let medicamento: Medicamento = {
           nregistro: data.nregistro,
-            descripcion: data.nombre,
-            nombre: data.vtm.nombre,
-            dosis: data.dosis,
-            labtitular: data.labtitular,
-            ffs: data.formaFarmaceuticaSimplificada.nombre,
-            administracion: data.viasAdministracion.map(
-              (via: any) => via.nombre
-            ),
-            fotos: data.fotos
-              ? data.fotos.map((foto: any) => foto.url)
-              : [],
-            docs: data.docs.length > 1 ? [data.docs[1]] : [],
+          descripcion: data.nombre,
+          nombre: data.vtm.nombre,
+          dosis: data.dosis,
+          labtitular: data.labtitular,
+          ffs: data.formaFarmaceuticaSimplificada.nombre,
+          administracion: data.viasAdministracion.map((via: any) => via.nombre),
+          fotos: data.fotos ? data.fotos.map((foto: any) => foto.url) : [],
+          docs: data.docs.length > 1 ? [data.docs[1]] : [],
         };
         return medicamento;
       })
@@ -114,20 +112,19 @@ export class TratamientosComponent implements OnInit {
     //console.log(this.medSeleccionado?.nregistro)
     const tratamiento: Tratamiento = {
       id: id,
-      intervalodiario: this.intervaloSeleccionado.toString(),
+      tomasDiarias: this.tomasSeleccionadas.toString(),
       primeratoma: this.horaSeleccionada,
       medicamento: createEmptyMedicamento(),
     };
-    this.getMedicamento(id.idmedicamento).subscribe(
-      (medicamento) => {
-        tratamiento.medicamento = medicamento;
-      }
-    );
+
+    this.getMedicamento(id.idmedicamento).subscribe((medicamento) => {
+      tratamiento.medicamento = medicamento;
+    });
     //console.log(tratamiento);
 
     this.tratamientoService.createTratamiento(tratamiento).subscribe({
       next: (data) => {
-        console.log(data);
+        //console.log(data);
         this.toggleShowForm();
         this.setTratamientos();
       },
@@ -163,6 +160,35 @@ export class TratamientosComponent implements OnInit {
       });
   }
 
+  openDialogDelete(tratamiento: Tratamiento): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    dialogConfig.data = {
+      mensaje: '¿Desea eliminar el tratamiento?',
+      medicamento: tratamiento.medicamento,
+      paciente: this.persona,
+      tratamiento: tratamiento
+    }
+
+    dialogConfig.width = '400px';
+    dialogConfig.panelClass = 'dialog-custom';
+    
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        // El usuario confirmó la eliminación, puedes realizar acciones adicionales si es necesario
+        console.log('El usuario confirmó la eliminación');
+      } else {
+        // El usuario canceló la eliminación, puedes realizar acciones adicionales si es necesario
+        console.log('El usuario canceló la eliminación');
+      }
+    });
+  }
+
   toggleShowForm(): void {
     this.showForm = !this.showForm;
     //console.log('showAddTratamiento:', this.showAddTratamiento);
@@ -178,8 +204,15 @@ export class TratamientosComponent implements OnInit {
     this.getMedicamentos();
   }
 
+  toggleEdit(tratamiento: Tratamiento) {
+    this.medSeleccionado = undefined;
+    this.getMedicamentos();
+  }
+
   onInputChange() {
-    (this.nombreMed === '' && this.labMed === '') ? this.medicamentos = [] : this.getMedicamentos();
+    this.nombreMed === '' && this.labMed === ''
+      ? (this.medicamentos = [])
+      : this.getMedicamentos();
   }
 
   get medResponse(): MedResponse {

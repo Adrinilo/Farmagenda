@@ -1,0 +1,24 @@
+.btn-cancel {
+    color: black !important;
+    font-weight: bold;
+    padding: 1rem;
+    border: 1px black solid;
+    border-radius: 0.25rem;
+}
+
+.btn-cancel:hover {
+    background-color: rgb(185 28 28);
+    color: white !important;
+}
+
+.btn-delete {
+    background-color: rgb(127 29 29);
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.btn-delete:hover {
+    background-color: rgb(185 28 28);
+}

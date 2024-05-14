@@ -2,17 +2,22 @@
     <div class="flex lg:flex-row lg:justify-between lg:items-center flex-col items-end mb-5 gap-5">
         <h2 class="w-full lg:w-2/3 font-bold text-3xl uppercase lg:mb-0">
             Mostrando tratamientos de {{persona.nombre }}</h2>
-            <button *ngIf="!showForm" (click)="toggleShowForm()" class="btn-add">AÑADIR TRATAMIENTO</button>
-            <button *ngIf="showForm" (click)="toggleShowForm()" class="btn-cancel">CANCELAR</button>
+        <button *ngIf="!showForm" (click)="toggleShowForm()" class="btn-add">AÑADIR TRATAMIENTO</button>
+        <button *ngIf="showForm" (click)="toggleShowForm()" class="btn-cancel">CANCELAR</button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4" *ngIf="!showForm && tratamientos.length > 0">
         <div *ngFor="let tratamiento of tratamientos"
-            class="p-4 text-xl text-slate-200 rounded-md bg-purple-700 border-black border-2">
+            class="p-4 text-xl rounded-md border-black border-2 flex flex-col gap-2">
             <p class="capitalize text-center">{{ tratamiento.medicamento.nombre }}</p>
             <img src="{{tratamiento.medicamento.fotos[0]}}" alt="{{tratamiento.medicamento.nregistro}}_img.jpg"
                 class="w-full">
-            <p>Intervalo Diario: {{ tratamiento.intervalodiario }}</p>
+            <p>Tomas Diarias: {{ tratamiento.tomasDiarias }}</p>
             <p>Primera Toma: {{ tratamiento.primeratoma }}</p>
+            <button class="btn-consulta text-xl">Consultar Prospecto</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <button (click)="toggleEdit(tratamiento)" class="btn-editar">Editar</button>
+                <button (click)="openDialogDelete(tratamiento)" class="btn-delete">Eliminar</button>
+            </div>
         </div>
     </div>
     <div class="flex flex-col gap-10" *ngIf="showForm">
@@ -62,14 +67,13 @@
         </div>
         <div class="flex flex-col md:flex-row gap-10">
             <div class="md:w-1/2 flex flex-col">
-                <h3 class="text-2xl">Indique la frecuencia entre tomas</h3>
-                <label for="intervaloSeleccionado">Con que frecuencia toma la pastilla diariamente</label>
+                <h3 class="text-2xl">Indique las tomas diarias</h3>
                 <!--<input name="intervaloSeleccionado" type="number" [(ngModel)]="intervaloSeleccionado" class="border-1">-->
-                <select [(ngModel)]="intervaloSeleccionado" class="w-1/6 text-center">
-                    <option [value]="24">24</option>
-                    <option [value]="12">12</option>
-                    <option [value]="8">8</option>
-                    <option [value]="6">6</option>
+                <select [(ngModel)]="tomasSeleccionadas" class="w-1/6 text-center">
+                    <option [value]="1">1 Toma</option>
+                    <option [value]="2">2 Tomas</option>
+                    <option [value]="3">3 Tomas</option>
+                    <option [value]="4">4 Tomas</option>
                 </select>
             </div>
             <div class="md:w-1/2">
