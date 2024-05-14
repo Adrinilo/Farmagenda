@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
       this.personaService.getPersonaById(uid).subscribe({
         next: (data) => {
           localStorage.setItem('persona', JSON.stringify(data));
+          localStorage.setItem('admin', JSON.stringify(data));
           this.router.navigate(['/']);
       },
       error: (error) => {

@@ -22,6 +22,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('persona');
+    localStorage.removeItem('admin');
     return signOut(this.auth);
   }
 }

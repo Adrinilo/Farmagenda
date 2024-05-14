@@ -1,7 +1,7 @@
-<div class="h-full flex flex-col bg-slate-400 overflow-x-auto items-center p-5">
-    <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 bg-white rounded-lg shadow-lg text-2xl">
-        <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Registro nuevos usuarios</h2>
-        <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+<div class="h-full flex flex-col overflow-x-auto items-center p-5">
+    <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 rounded-lg shadow-lg text-2xl border-2 border-black">
+        <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Registro nuevo paciente</h2>
+        <form [formGroup]="formReg" (ngSubmit)="createPaciente()">
             <div class="mb-4">
                 <label for="nombre" class="block font-medium text-gray-700">Nombre</label>
                 <input type="text" formControlName="nombre"
@@ -9,25 +9,19 @@
                     placeholder="Escriba su nombre">
             </div>
             <div class="mb-4">
-                <label for="telefono" class="block font-medium text-gray-700">Teléfono Móvil*</label>
+                <label for="telefono" class="block font-medium text-gray-700">Teléfono Móvil* <span class="text-sm font-normal">(Campo opcional)</span></label>
                 <input type="number" formControlName="telefono"
                     class="mt-1 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
-                    placeholder="Escriba su telefono">
+                    placeholder="Indique el telefono asociado">
             </div>
             <div class="mb-4">
-                <label for="email" class="block font-medium text-gray-700">Correo electrónico*</label>
+                <label for="email" class="block font-medium text-gray-700">Correo electrónico* <span class="text-sm font-normal">(Campo opcional)</span></label>
                 <input type="email" formControlName="email"
                     class="mt-1 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
-                    placeholder="Escriba su correo electronico">
+                    placeholder="Indique el correo electronico asociado">
                 <p class="ps-1 text-sm mb-2">(Ejemplo: correo&#64;gmail.com)</p>
             </div>
-            <div class="mb-4">
-                <label for="password" class="block font-medium text-gray-700">Contraseña</label>
-                <input type="password" formControlName="password"
-                    class="mt-1 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
-                    placeholder="Inventese una contraseña" autocomplete="current-password">
-            </div>
-            <p class="text-sm mb-2">*(Puede indicar su teléfono móvil y/o su correo electrónico)</p>
+            <p class="text-sm mb-2">*(Si deja los campos vacios se asignaran los suyos)</p>
             <button
                 class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                 type="submit">Registrar</button>

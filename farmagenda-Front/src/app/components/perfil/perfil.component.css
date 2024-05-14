@@ -10,3 +10,42 @@
 .btn-logout:hover {
     background-color: rgb(185 28 28);
 }
+
+.btn-add {
+    background-color: rgb(59 7 100);
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    min-width: 14rem;
+}
+
+.btn-add:hover {
+    background-color: rgb(88 28 135);
+}
+
+.btn-select {
+    background-color: #34796C;
+    color: white;
+    font-weight: bold;
+    padding: 0.7rem;
+    border-radius: 0.25rem;
+}
+
+.btn-select:hover {
+    background-color: #49ad9b;
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}
+
+.btn-options {
+    background-color: #184543;
+    color: white;
+    font-weight: bold;
+    padding: 0.7rem;
+    border-radius: 0.25rem;
+}
+
+.btn-options:hover {
+    background-color: #67958D;
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}

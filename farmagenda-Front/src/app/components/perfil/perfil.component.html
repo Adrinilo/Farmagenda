@@ -1,23 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container-fluid pt-5 pb-10 px-10">
-        <div class="flex gap-4 justify-end">
-            <button (click)="onLogout()" class="btn-logout">Cerrar Sesión</button>
-        </div>
+<div class="container-fluid pt-5 pb-10 px-10">
+    <div class="flex gap-4 justify-end">
+        <button (click)="toggleSelectPerson(admin)" class="btn-select" *ngIf="!adminSelected">Volver a tu
+            perfil</button>
+        <button routerLink="/register-paciente" class="btn-add">Añadir Paciente</button>
+        <button (click)="onLogout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-5">
         <div class="flex flex-col text-2xl">
-            <p>Nombre: {{ persona.nombre }}</p>
-            <p>Email: {{ persona.email }}</p>
-            <p>Telefono: {{ persona.telefono }}</p>
+            <h2 class="font-semibold mb-2 underline underline-offset-4">TUS DATOS:</h2>
+            <p>Nombre: {{ admin.nombre }}</p>
+            <p>Email asociado: {{ admin.email }}</p>
+            <p>Telefono asociado: {{ admin.telefono }}</p>
+        </div>
+        <div *ngIf="!adminSelected">
+            <h2 class="font-semibold text-2xl uppercase">Paciente activo:</h2>
+            <div class="flex flex-col text-2xl rounded border-2 border-black p-4">
+                <p>Nombre: {{ activo.nombre }}</p>
+                <p>Email asociado: {{ activo.email }}</p>
+                <p>Telefono asociado: {{ activo.telefono }}</p>
+            </div>
         </div>
     </div>
-</body>
-
-</html>
+    <div *ngIf="personasACargo.length > 0" class="mt-20">
+        <h2 class="font-semibold mb-2 underline underline-offset-4 text-2xl uppercase">Pacientes a cargo:</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-4">
+            <div class="flex flex-col text-2xl rounded border-2 border-black p-4 justify-between"
+                *ngFor="let paciente of personasACargo">
+                <div>
+                    <p>Nombre: {{ paciente.nombre }}</p>
+                    <p>Email asociado: {{ paciente.email }}</p>
+                    <p>Telefono asociado: {{ paciente.telefono }}</p>
+                </div>
+                <div class="mt-5 flex gap-5">
+                    <button (click)="toggleSelectPerson(paciente)" class="btn-select grow text-xl md:col-span-2">Seleccionar
+                        Paciente</button>
+                    <button  class="btn-options flex-none text-3xl flex justify-center"> 
+                        <ng-icon name="heroCogSolid"></ng-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

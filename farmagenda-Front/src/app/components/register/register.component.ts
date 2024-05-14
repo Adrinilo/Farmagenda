@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { PersonaService } from '../../services/persona.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   formReg: FormGroup;
 
   constructor(
@@ -30,8 +30,6 @@ export class RegisterComponent implements OnInit {
       ]),
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.authService

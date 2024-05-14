@@ -1,18 +1,18 @@
-<div class="h-full flex flex-col bg-slate-400">
-    <h2 class="text-4xl my-5 text-center font-semibold uppercase">Inicio de sesión</h2>
-    <div class="flex flex-col items-center h-full p-5">
-        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="w-full md:w-2/3 lg:w-1/3 p-4 bg-white rounded-t-lg shadow-lg text-2xl">
+<div class="h-full flex flex-col bg-slate-400 items-center p-10 md:px-0">
+    <div class="w-full md:w-2/3 lg:w-1/3 p-4 bg-white rounded-t-lg shadow-lg text-2xl">
+        <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Inicio de sesión</h2>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="">
 
             <div class="mb-4">
-                <label for="email" class="block font-medium text-gray-700">Correo Electronico</label>
+                <label for="email" class="block font-medium text-gray-700">Correo electrónico</label>
                 <input type="email" formControlName="email"
-                    class="mt-1 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
                     placeholder="correo@gmail.com">
             </div>
             <div class="mb-4">
                 <label for="password" class="block font-medium text-gray-700">Contraseña</label>
                 <input type="password" formControlName="password"
-                    class="mt-1 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
                     placeholder="Escriba su contraseña" autocomplete="current-password">
             </div>
 
@@ -20,8 +20,16 @@
                 class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                 type="submit">Entrar</button>
         </form>
-        <button routerLink="/register" class="w-full md:w-2/3 lg:w-1/3 bg-green-600 text-white text-2xl py-2 rounded-b-md 
-            hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-50">Registro para
-            nuevos usuarios</button>
+    </div>
+    <button routerLink="/register" class="w-full md:w-2/3 lg:w-1/3 bg-green-600 text-white text-2xl py-2 rounded-b-md 
+    hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-50">Registro para
+    nuevos usuarios</button>
+    <div class="w-full md:w-2/3 lg:w-1/3 mt-5 flex gap-5">
+        <button routerLink="/google" class="w-1/2 bg-red-600 text-white text-xl p-4 rounded-full
+        hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-800 focus:ring-opacity-50">Inicio de sesión con
+            google</button>
+        <button routerLink="/telefono" class="w-1/2 bg-purple-600 text-white text-xl p-4 rounded-full
+        hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-800 focus:ring-opacity-50">Inicio de sesión
+            con Telefono</button>
     </div>
 </div>

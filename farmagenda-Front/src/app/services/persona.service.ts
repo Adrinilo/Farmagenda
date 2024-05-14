@@ -18,6 +18,11 @@ export class PersonaService {
     return this.http.get<Persona>(url);
   }
   
+  getPersonasACargoById(id: string): Observable<Persona[]> {
+    const url = `${this.baseUrl}/${id}/pacientes`
+    return this.http.get<Persona[]>(url);
+  }
+
   getTratamientos(id: string): Observable<Tratamiento[]> {
     const url = `${this.baseUrl}/${id}/tratamientos`
     return this.http.get<Tratamiento[]>(url);
