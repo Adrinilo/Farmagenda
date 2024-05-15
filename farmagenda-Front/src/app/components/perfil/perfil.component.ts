@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 import { Persona } from '../../interfaces/persona.interface';
 import { PersonaService } from '../../services/persona.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { OptionsDialogComponent } from '../dialogs/optionsdialog/optionsdialog.component';
 
 @Component({
   selector: 'app-perfil',
@@ -19,7 +21,8 @@ export class PerfilComponent {
   constructor(
     private authService: AuthService,
     private personaService: PersonaService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     const adminString = localStorage.getItem('admin');
     if (adminString) {
@@ -59,6 +62,34 @@ export class PerfilComponent {
         this.router.navigate(['/login']);
       })
       .catch((error) => console.log(error));
+  }
+
+  openDialogOptions(paciente: Persona) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    dialogConfig.data = {
+      mensaje: '¿Desea eliminar el paciente?',
+      paciente: paciente,
+      idadmin: this.admin.id
+    };
+
+    dialogConfig.width = '400px';
+    dialogConfig.panelClass = 'dialog-custom';
+
+    const dialogRef = this.dialog.open(OptionsDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        // El usuario confirmó la eliminación, puedes realizar acciones adicionales si es necesario
+        console.log('El usuario confirmó la eliminación');
+      } else {
+        // El usuario canceló la eliminación, puedes realizar acciones adicionales si es necesario
+        console.log('El usuario canceló la eliminación');
+      }
+    });
   }
 
   toggleSelectPerson(paciente: Persona) {

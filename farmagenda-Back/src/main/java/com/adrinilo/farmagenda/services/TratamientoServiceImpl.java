@@ -78,7 +78,7 @@ public class TratamientoServiceImpl implements TratamientoService {
 
     @Override
     public void deleteTratamiento(TratamientoId id) {
-        System.out.println(id.toString());
+        //System.out.println(id.toString());
         Tratamiento tratamiento = tratamientoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tratamiento", "id", id.toString()));
         tratamientoRepository.delete(tratamiento);

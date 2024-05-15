@@ -51,5 +51,4 @@ public class AdministracionId implements Serializable {
     public int hashCode() {
         return Objects.hash(idadmin, idpaciente);
     }
-
 }

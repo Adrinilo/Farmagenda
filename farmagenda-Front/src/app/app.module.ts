@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './components/dialogs/confirmdialog/confirmdialog.component';
+import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optionsdialog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -61,7 +62,8 @@ const icons = {
     RegisterComponent,
     LoginComponent,
     RegisterPacienteComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    OptionsDialogComponent
   ],
   imports: [
     BrowserModule,

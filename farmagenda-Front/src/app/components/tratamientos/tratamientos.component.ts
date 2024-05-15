@@ -170,12 +170,12 @@ export class TratamientosComponent implements OnInit {
       mensaje: '¿Desea eliminar el tratamiento?',
       medicamento: tratamiento.medicamento,
       paciente: this.persona,
-      tratamiento: tratamiento
-    }
+      tratamiento: tratamiento,
+    };
 
     dialogConfig.width = '400px';
     dialogConfig.panelClass = 'dialog-custom';
-    
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {

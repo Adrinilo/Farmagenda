@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service.service';
 import { PersonaService } from '../../services/persona.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
   formLogin: FormGroup;
   error: boolean = false;
 
@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
       ]),
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.authService

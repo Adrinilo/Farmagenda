@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Persona } from '../interfaces/persona.interface';
 import { Administracion, AdministracionId } from '../interfaces/administracion.interface';
@@ -26,5 +26,20 @@ export class AdministracionService {
       idpaciente: idpaciente
     };
     return this.http.post<any>(`${this.baseUrl}`, administracion);
+  }
+
+  deleteAdministracion(idadmin: string, idpaciente: string): Observable<any> {
+    const administracionid: AdministracionId =  {
+      idadmin: idadmin,
+      idpaciente: idpaciente
+    };
+    //console.log(administracionid);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: administracionid
+    };
+    return this.http.delete<any>(`${this.baseUrl}`, options);
   }
 }

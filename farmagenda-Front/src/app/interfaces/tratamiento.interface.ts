@@ -11,4 +11,3 @@ export interface Tratamiento {
     primeratoma: string;
     medicamento: Medicamento;
 }
-
