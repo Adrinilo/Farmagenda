@@ -1,8 +1,11 @@
-<h2 mat-dialog-title class="uppercase">{{datos.mensaje}}</h2>
+<h2 mat-dialog-title class="uppercase text-center">Opciones</h2>
 <div mat-dialog-content>
-    <p>Paciente: <span class="capitalize">{{datos.paciente.nombre}}</span></p>
+    <h2>Paciente: <span class="capitalize">{{datos.paciente.nombre}}</span></h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center m-0 gap-5">
+        <button mat-button (click)="onClick('edit')" class="btn-edit">Editar</button>
+        <button mat-button (click)="onClick('delete')" class="btn-delete">Eliminar</button>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false" class="btn-cancel">Cancelar</button>
-    <button mat-button (click)="onClickEliminar()" class="btn-delete">Eliminar</button>
 </div>

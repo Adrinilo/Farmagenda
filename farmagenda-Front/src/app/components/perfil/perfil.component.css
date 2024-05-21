@@ -30,6 +30,7 @@
     font-weight: bold;
     padding: 0.7rem;
     border-radius: 0.25rem;
+    min-width: 14rem;
 }
 
 .btn-select:hover {

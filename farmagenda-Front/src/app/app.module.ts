@@ -36,8 +36,9 @@ const routes: Routes = [
   { path: 'prospectos', component: ProspectoComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'calendario', component: CalendarioComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'perfil', component: PerfilComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
+  { path: 'registerPaciente', component: RegisterPacienteComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
+  { path: 'updatePaciente', component: RegisterPacienteComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'register', component: RegisterComponent },
-  { path: 'register-paciente', component: RegisterPacienteComponent },
   { path: 'login', component: LoginComponent }
 ];
 

@@ -1,9 +1,9 @@
 <h2 mat-dialog-title class="uppercase">{{datos.mensaje}}</h2>
 <div mat-dialog-content>
-    <p>Medicamento: <span class="capitalize">{{datos.medicamento.descripcion}}</span></p>
-    <p>Paciente: <span class="capitalize">{{datos.paciente.nombre}}</span></p>
+    <p *ngIf="datos.medicamento">Medicamento: <span class="capitalize">{{datos.medicamento}}</span></p>
+    <p>Paciente: <span class="capitalize">{{datos.paciente}}</span></p>
 </div>
 <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="false" class="btn-cancel">Cancelar</button>
-    <button mat-button (click)="onClickEliminar()" class="btn-delete">Eliminar</button>
+    <button mat-button [mat-dialog-close]="true" class="btn-delete">Eliminar</button>
 </div>

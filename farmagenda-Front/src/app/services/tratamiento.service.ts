@@ -17,13 +17,12 @@ export class TratamientoService {
     return this.http.post<Tratamiento>(this.baseUrl, tratamiento);
   }
 
-  deleteTratamiento(tratamientoId: Tratamientoid): Observable<any> {
+  deleteTratamiento(tratamientoId: Tratamientoid): Observable<String> {
     const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      body: tratamientoId
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      body: tratamientoId,
+      responseType: 'text' as 'json'
     };
-    return this.http.delete<any>(`${this.baseUrl}`, options);
+    return this.http.request<string>('delete', `${this.baseUrl}`, options);
   }
 }

@@ -47,9 +47,8 @@ public class AdminController {
     }
 
     @DeleteMapping
-    public ResponseEntity<AdministracionDTO> deleteTratamiento(@RequestBody AdministracionId id) {
-        AdministracionDTO administracionDTO = adminService.getAdminById(id);
+    public ResponseEntity<String> deleteTratamiento(@RequestBody AdministracionId id) {
         adminService.deleteAdmin(id);
-        return new ResponseEntity<>(administracionDTO, HttpStatus.OK);
+        return new ResponseEntity<>("Administración borrada con exito", HttpStatus.OK);
     }
 }

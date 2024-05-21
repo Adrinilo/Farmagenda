@@ -160,6 +160,19 @@ export class TratamientosComponent implements OnInit {
       });
   }
 
+  onDelete(tratamiento: Tratamiento): void {    
+    this.tratamientoService.deleteTratamiento(tratamiento.id).subscribe({
+      next: (data) => {
+        console.log("Tratamiento eliminado con exito: "+data);
+        window.location.reload();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el tratamiento:', error);
+        //console.log('Mensaje del error:', error.error);
+      },
+    });
+  }
+
   openDialogDelete(tratamiento: Tratamiento): void {
     const dialogConfig = new MatDialogConfig();
 
@@ -168,22 +181,22 @@ export class TratamientosComponent implements OnInit {
 
     dialogConfig.data = {
       mensaje: '¿Desea eliminar el tratamiento?',
-      medicamento: tratamiento.medicamento,
-      paciente: this.persona,
-      tratamiento: tratamiento,
+      medicamento: tratamiento.medicamento.descripcion,
+      paciente: this.persona.nombre,
     };
 
     dialogConfig.width = '400px';
-    dialogConfig.panelClass = 'dialog-custom';
+    dialogConfig.panelClass = 'dialog-custom'; // Ajustar estilo del contenedor del dialogo
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        // El usuario confirmó la eliminación, puedes realizar acciones adicionales si es necesario
+        // El usuario confirmó la eliminación
         console.log('El usuario confirmó la eliminación');
+        this.onDelete(tratamiento);
       } else {
-        // El usuario canceló la eliminación, puedes realizar acciones adicionales si es necesario
+        // El usuario canceló la eliminación
         console.log('El usuario canceló la eliminación');
       }
     });

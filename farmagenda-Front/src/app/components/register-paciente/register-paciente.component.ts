@@ -15,20 +15,27 @@ import { AdministracionService } from '../../services/administracion.service';
 export class RegisterPacienteComponent implements OnInit {
   formReg: FormGroup;
   admin!: Persona;
+  paciente!: Persona;
+  buttonText: string = 'Registrar';
+  titleText: string = 'Registro nuevo paciente';
 
   constructor(
     private router: Router,
     private personaService: PersonaService,
     private adminService: AdministracionService
   ) {
+    const pacienteString = localStorage.getItem('paciente');
+    if (pacienteString) {
+      this.paciente = JSON.parse(pacienteString);
+    }
     this.formReg = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl(this.paciente?.email || '', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
       ]),
-      nombre: new FormControl(''),
-      telefono: new FormControl('', [Validators.maxLength(9)]),
+      nombre: new FormControl(this.paciente?.nombre || ''),
+      telefono: new FormControl(this.paciente?.telefono || '', [Validators.maxLength(9)]),
     });
   }
   ngOnInit(): void {
@@ -36,6 +43,8 @@ export class RegisterPacienteComponent implements OnInit {
     if (adminString) {
       this.admin = JSON.parse(adminString);
     }
+    this.buttonText = this.paciente ? 'Editar' : 'Registrar';
+    this.titleText = this.paciente ? 'Editar paciente' : 'Registro nuevo paciente';
   }
 
   generarId(): string {
@@ -47,6 +56,16 @@ export class RegisterPacienteComponent implements OnInit {
 
     // Truncar el UUID a un máximo de 30 caracteres
     return uuid.substring(0, 30);
+  }
+
+  onSubmit(): void {
+    if (this.paciente) {
+      this.updatePaciente();
+      //console.log('update')
+    } else {
+      this.createPaciente();
+      //console.log('create')
+    }
   }
 
   //Crear usuario en bd
@@ -68,7 +87,7 @@ export class RegisterPacienteComponent implements OnInit {
       },
     });
   }
-
+  
   //Asignar como administrado el usuario registrado actualmente
   setAdmin(persona: Persona): void {
     this.adminService.setAdmin(this.admin, persona).subscribe({
@@ -77,6 +96,27 @@ export class RegisterPacienteComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al asignar administrador al paciente:', error);
+      },
+    });
+  }
+
+  //Actualizar un paciente existente
+  updatePaciente(): void {
+    const persona: Persona = {
+      id: this.paciente.id,
+      nombre: this.formReg.value.nombre,
+      telefono: this.formReg.value.telefono === '' ? this.paciente.telefono : this.formReg.value.telefono,
+      email: this.formReg.value.email === '' ? this.paciente.email : this.formReg.value.email
+    };
+    //console.log(persona);
+
+    this.personaService.updatePersona(persona).subscribe({
+      next: (data) => {
+        console.log('Persona actualizada con exito:', data);
+        this.router.navigate(['/perfil']);
+      },
+      error: (error) => {
+        console.error('Error al crear al paciente:', error);
       },
     });
   }

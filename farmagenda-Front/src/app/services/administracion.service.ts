@@ -28,7 +28,7 @@ export class AdministracionService {
     return this.http.post<any>(`${this.baseUrl}`, administracion);
   }
 
-  deleteAdministracion(idadmin: string, idpaciente: string): Observable<any> {
+  deleteAdministracion(idadmin: string, idpaciente: string): Observable<Administracion> {
     const administracionid: AdministracionId =  {
       idadmin: idadmin,
       idpaciente: idpaciente
@@ -40,6 +40,6 @@ export class AdministracionService {
       }),
       body: administracionid
     };
-    return this.http.delete<any>(`${this.baseUrl}`, options);
+    return this.http.delete<Administracion>(`${this.baseUrl}`, options);
   }
 }

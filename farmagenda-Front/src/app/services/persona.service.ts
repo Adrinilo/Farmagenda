@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tratamiento } from '../interfaces/tratamiento.interface';
 import { Persona } from '../interfaces/persona.interface';
@@ -32,8 +32,13 @@ export class PersonaService {
     return this.http.post<Persona>(this.baseUrl, persona);
   }
 
-  deletePersona(id: string): Observable<String> {
-    return this.http.delete<String>(`${this.baseUrl}/${id}`);
+  updatePersona(persona: Persona): Observable<Persona> {
+    console.log(persona.id)
+    const url = `${this.baseUrl}/${persona.id}`;
+    return this.http.put<Persona>(url, persona);
   }
 
+  deletePersona(id: string): Observable<String> {
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  }
 }
