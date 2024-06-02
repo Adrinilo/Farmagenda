@@ -51,7 +51,7 @@ export class PerfilComponent {
 
   // Obtener lista de pacientes a cargo
   setPersonasACargo() {
-    this.personaService.getPersonasACargoById(this.admin.id).subscribe({
+    this.personaService.getPersonasACargo(this.admin.id).subscribe({
       next: (data) => {
         this.personasACargo = data;
       },

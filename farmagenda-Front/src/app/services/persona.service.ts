@@ -18,7 +18,7 @@ export class PersonaService {
     return this.http.get<Persona>(url);
   }
   
-  getPersonasACargoById(id: string): Observable<Persona[]> {
+  getPersonasACargo(id: string): Observable<Persona[]> {
     const url = `${this.baseUrl}/${id}/pacientes`
     return this.http.get<Persona[]>(url);
   }

@@ -13,26 +13,29 @@
                 class="w-full">
             <p>Tomas Diarias: {{ tratamiento.tomasDiarias }}</p>
             <p>Primera Toma: {{ tratamiento.primeratoma }}</p>
-            <button class="btn-consulta text-xl">Consultar Prospecto</button>
+            <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl">Consultar Prospecto</button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <button (click)="toggleEdit(tratamiento)" class="btn-editar">Editar</button>
                 <button (click)="openDialogDelete(tratamiento)" class="btn-delete">Eliminar</button>
             </div>
         </div>
     </div>
-    <div class="flex flex-col gap-10" *ngIf="showForm">
+    <div *ngIf="tratamientos.length === 0 && !showForm">
+        <h2 class="text-xl text-bold uppercase">No hay tratamientos registrados para el usuario actual</h2>
+    </div>
+    <form [formGroup]="formReg" (ngSubmit)="onSubmit()" *ngIf="showForm" class="flex flex-col gap-10">
         <div>
             <h3 class="text-2xl">Selecciona el medicamento</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 p-5 items-center">
                 <div class="flex flex-col gap-3 p-5 items-center">
                     <label for="nombreMed">Introduzca el nombre del medicamento</label>
-                    <input type="text" name="nombreMed" [(ngModel)]="nombreMed" (input)="onInputChange()"
-                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                    <input type="text" name="nombreMed" (input)="onInputChange()"
+                        formControlName="nombre" class="border border-black rounded p-1 w-2/3 lg:w-1/2">
                 </div>
                 <div class="flex flex-col gap-3 p-5 items-center">
                     <label for="labMed">Introduzca el laboratorio del medicamento</label>
-                    <input type="text" name="labMed" [(ngModel)]="labMed" (input)="onInputChange()"
-                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                    <input type="text" name="labMed" (input)="onInputChange()"
+                        formControlName="laboratorio" class="border border-black rounded p-1 w-2/3 lg:w-1/2">
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -50,17 +53,13 @@
                     <p>Forma Farmaceutica Simplificada: {{ medicamento.ffs }}</p>
                     <p>Administracion: <span *ngFor="let via of medicamento.administracion"> {{ via }} </span></p>
                     <p>Descripción: {{ medicamento.descripcion }}</p>
-                    <div *ngFor="let doc of medicamento.docs">
-                        <p>url: {{ doc.url }}</p>
-                        <p>urlHtml: {{ doc.urlHtml }}</p>
-                    </div>
                     <button class="btn-select mt-auto" (click)="toggleSelectMed(medicamento)"
                         *ngIf="medicamento !== medSeleccionado">SELECCIONAR</button>
                     <button class="btn-cancel mt-auto" (click)="toggleDeselectMed()"
                         *ngIf="medicamento === medSeleccionado">CANCELAR SELECCION</button>
                 </div>
             </div>
-            <div *ngIf="medicamentos.length <= 0 && (nombreMed !== '' || labMed !== '')">
+            <div *ngIf="medicamentos.length <= 0 && (formReg.get('nombre')?.value !== '' || formReg.get('laboratorio')?.value !== '')">
                 <h2 class="text-lg text-red-500">No se han encontrado medicamentos que concuerden con los parametros
                     introducidos</h2>
             </div>
@@ -69,7 +68,7 @@
             <div class="md:w-1/2 flex flex-col">
                 <h3 class="text-2xl">Indique las tomas diarias</h3>
                 <!--<input name="intervaloSeleccionado" type="number" [(ngModel)]="intervaloSeleccionado" class="border-1">-->
-                <select [(ngModel)]="tomasSeleccionadas" class="w-1/6 text-center">
+                <select formControlName="tomas" class="w-1/6 text-center">
                     <option [value]="1">1 Toma</option>
                     <option [value]="2">2 Tomas</option>
                     <option [value]="3">3 Tomas</option>
@@ -78,14 +77,11 @@
             </div>
             <div class="md:w-1/2">
                 <h3 class="text-2xl">Indique la hora de la primera toma</h3>
-                <input name="horaSeleccionada" type="time" [(ngModel)]="horaSeleccionada">
+                <input name="horaSeleccionada" type="time" formControlName="hora">
             </div>
         </div>
         <div class="flex flex-col items-end">
-            <button class="btn-select mt-auto w-1/4" (click)="addTratamiento()">AÑADIR TRATAMIENTO</button>
+            <button class="btn-select mt-auto w-1/4 uppercase" type="submit">{{buttonText}}</button>
         </div>
-    </div>
-    <div *ngIf="tratamientos.length === 0 && !showForm">
-        <h2 class="text-xl text-bold uppercase">No hay tratamientos registrados para el usuario actual</h2>
-    </div>
+    </form>
 </div>

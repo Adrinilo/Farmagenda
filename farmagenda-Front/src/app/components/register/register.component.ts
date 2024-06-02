@@ -51,7 +51,10 @@ export class RegisterComponent {
 
     this.personaService.createPersona(persona).subscribe({
       next: (data) => {
+        // Registro de paciente activo
         localStorage.setItem('persona', JSON.stringify(data));
+        // Registro de persona logueada
+        localStorage.setItem('admin', JSON.stringify(data));
         this.router.navigate(['/']);
       },
       error: (error) => {

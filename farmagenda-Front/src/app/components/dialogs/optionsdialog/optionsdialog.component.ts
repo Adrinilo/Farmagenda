@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonaService } from '../../../services/persona.service';
-import { AdministracionService } from '../../../services/administracion.service';
 
 @Component({
   selector: 'app-optionsdialog',
