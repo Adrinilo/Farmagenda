@@ -10,9 +10,5 @@ import java.util.List;
 //@Transactional
 public interface TratamientoRepository extends JpaRepository<Tratamiento, TratamientoId> {
 
-    /*@Modifying
-    @Query(value = "INSERT INTO tratamientos (idpaciente, idmedicamento, intervalodiario, primeratoma) VALUES (:idpaciente, :idmedicamento, :intervalodiario, :primeratoma)", nativeQuery = true)
-    void createTratamiento(@Param("idpaciente") String idpaciente, @Param("idmedicamento") Long idmedicamento, @Param("intervalodiario") int intervalodiario, @Param("primeratoma") LocalTime primeratoma);*/
-
     List<Tratamiento> findById_Idpaciente(String idpaciente);
 }

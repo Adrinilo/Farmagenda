@@ -1,6 +1,5 @@
 package com.adrinilo.farmagenda.services;
 
-import com.adrinilo.farmagenda.dto.AdministracionDTO;
 import com.adrinilo.farmagenda.dto.PersonaDTO;
 import com.adrinilo.farmagenda.dto.PersonaResponse;
 

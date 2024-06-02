@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "personas", schema = "farmagendadb")
@@ -21,7 +19,7 @@ public class Persona {
     @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
-    @Size(max = 9)
+    @Size(max = 9,min = 9)
     @Column(name = "telefono", length = 9)
     private String telefono;
 
@@ -39,7 +37,6 @@ public class Persona {
 
     @OneToMany(mappedBy = "id.idpaciente")
     private List<Tratamiento> tratamientos = new ArrayList<>();
-
 
     public List<Tratamiento> getTratamientos() {
         return tratamientos;

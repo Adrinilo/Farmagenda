@@ -1,9 +1,7 @@
 package com.adrinilo.farmagenda.services;
 
-import com.adrinilo.farmagenda.dto.AdministracionDTO;
 import com.adrinilo.farmagenda.dto.PersonaDTO;
 import com.adrinilo.farmagenda.dto.PersonaResponse;
-import com.adrinilo.farmagenda.entities.Administracion;
 import com.adrinilo.farmagenda.entities.Persona;
 import com.adrinilo.farmagenda.exceptions.ResourceNotFoundException;
 import com.adrinilo.farmagenda.repositories.AdminRepository;
@@ -14,10 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
