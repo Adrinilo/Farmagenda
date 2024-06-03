@@ -1,3 +1,19 @@
-<div class="h-full p-5" id="home-container">
-    <h1>Hola mundo</h1>
+<div class="h-full px-5 flex flex-col items-center" id="home-container">
+    <div class="my-10 px-10 pl-28 flex justify-between items-center align-middle w-full">
+        <div class="flex items-center text-9xl">
+            <p class="text-3xl">Bienvenido {{admin}}</p>
+        </div>
+        <button (click)="onClickAjustes()" class="btn-select">AJUSTES</button>
+    </div>
+    <div class="h-full w-full flex justify-center items-center pt-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-3/4 h-2/3">
+            <!-- rel="noopener noreferrer" evita que la nueva página tenca acceso al objeto window.opener -->
+            <a href="https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/home.htm" class="btn" target="_blank" rel="noopener noreferrer">VACUNAS</a>
+            <a href="https://sescam.jccm.es/misaluddigital/#/app/citas/primaria" class="btn" target="_blank" rel="noopener noreferrer">CITA ATENCION PRIMARIA</a>
+            <a href="https://sanidad.castillalamancha.es/ciudadanos/hazte-donante-sangre/colectas-donantes-de-sangre/toledo" class="btn" target="_blank" rel="noopener noreferrer">DONACIONES DE SANGRE</a>
+            <a href="https://www.aemps.gob.es/apps/cima/docs/medicamentosygluten.pdf" class="btn" target="_blank" rel="noopener noreferrer">Medicamentos y gluten</a>
+            <a href="https://www.aemps.gob.es/industria-farmaceutica/etiquetado-y-prospectos/informacion-y-simbologia-en-el-etiquetado-de-los-medicamentos/" class="btn" target="_blank" rel="noopener noreferrer">Información etiquetado</a>
+            <a href="https://cima.aemps.es/cima/publico/tutorialprospecto.html" class="btn" target="_blank" rel="noopener noreferrer">Información prospecto</a>
+        </div>
+    </div>
 </div>
