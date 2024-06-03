@@ -21,7 +21,7 @@
         </div>
     </div>
     <div *ngIf="tratamientos.length === 0 && !showForm">
-        <h2 class="text-xl text-bold uppercase">No hay tratamientos registrados para el usuario actual</h2>
+        <h2 class="text-xl text-bold uppercase">No hay tratamientos registrados para el paciente actual</h2>
     </div>
     <form [formGroup]="formReg" (ngSubmit)="onSubmit()" *ngIf="showForm" class="flex flex-col gap-10">
         <div>

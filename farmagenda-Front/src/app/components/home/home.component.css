@@ -15,20 +15,20 @@
 }
 
 .btn:hover {
-  background-color: #808899;    
-    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+  background-color: #808899;
+  text-shadow: 2px 2px 4px rgb(10, 10, 10);
 }
 
 .btn-select {
-    background-color: #34796C;
-    color: white;
-    font-weight: bold;
-    padding: 0.7rem;
-    border-radius: 0.25rem;
-    min-width: 14rem;
+  background-color: #34796c;
+  color: white;
+  font-weight: bold;
+  padding: 0.7rem;
+  border-radius: 0.25rem;
+  min-width: 14rem;
 }
 
 .btn-select:hover {
-    background-color: #49ad9b;
-    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+  background-color: #49ad9b;
+  text-shadow: 2px 2px 4px rgb(10, 10, 10);
 }

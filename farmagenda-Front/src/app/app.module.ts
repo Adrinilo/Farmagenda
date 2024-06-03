@@ -29,17 +29,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './components/dialogs/confirmdialog/confirmdialog.component';
 import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optionsdialog.component';
+import { ProspectoMostrarComponent } from './components/prospectomostrar/prospectomostrar.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'tratamientos', component: TratamientosComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'prospectos', component: ProspectoComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
+  { path: 'prospectos/:nregistro', component: ProspectoMostrarComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'calendario', component: CalendarioComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'perfil', component: PerfilComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'registerPaciente', component: RegisterPacienteComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'updatePaciente', component: RegisterPacienteComponent, ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 const icons = { 
@@ -64,7 +67,8 @@ const icons = {
     LoginComponent,
     RegisterPacienteComponent,
     ConfirmDialogComponent,
-    OptionsDialogComponent
+    OptionsDialogComponent,
+    ProspectoMostrarComponent
   ],
   imports: [
     BrowserModule,

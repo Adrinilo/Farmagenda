@@ -8,13 +8,13 @@
         </a>
         <ul class="flex flex-wrap items-center justify-center lg:justify-start text-base">
           <li>
-            <a href="" class="text-secondary flex flex-col gap-1 items-center px-4 py-2">
+            <a routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }" class="text-white flex flex-col gap-1 items-center px-4 py-2">
               <ng-icon name="heroHome" class="text-4xl"></ng-icon>
               INICIO
             </a>
           </li>
           <li>
-            <a href="tratamientos" class="text-white flex flex-col gap-1 items-center px-4 py-2">
+            <a routerLink="tratamientos" routerLinkActive="selected" class="text-white flex flex-col gap-1 items-center px-4 py-2">
               <ng-icon name="heroClipboardDocumentList" class="text-4xl"></ng-icon>
               TRATAMIENTOS
             </a>
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a href="perfil" class="text-white flex flex-col gap-1 items-center px-4 py-2">
+            <a routerLink="perfil" routerLinkActive="selected" class="text-white flex flex-col gap-1 items-center px-4 py-2">
               <ng-icon name="heroUserCircleSolid" class="text-4xl"></ng-icon>
               MI PERFIL
             </a>

@@ -6,3 +6,10 @@ nav {
 h2{
     margin: 0; 
   }
+
+.selected {
+    background-color: #3b8d7e;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+    box-shadow: 2px 1px 5px #CDCDCF, -2px -2px 5px #3b8d7e;
+}
