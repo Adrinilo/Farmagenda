@@ -5,9 +5,17 @@ export interface Tratamientoid {
     idmedicamento: string;
 }
 
+// Implementación del constructor vacío
+export function createEmptyTratamientoId(): Tratamientoid {
+    return {
+        idpaciente: '',
+        idmedicamento: ''
+    };
+  }
+
 export interface Tratamiento {
     id: Tratamientoid;
-    tomasDiarias: string;
+    tomasDiarias: number;
     primeratoma: string;
     medicamento: Medicamento;
 }

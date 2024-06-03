@@ -1,6 +1,7 @@
 package com.adrinilo.farmagenda.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalTime;
 
@@ -15,6 +16,13 @@ public class Tratamiento {
 
     @Column(name = "primeratoma")
     private LocalTime primeratoma;
+
+    @Column(name = "notas")
+    private String notas;
+
+    @Size(max = 6)
+    @Column(name = "color")
+    private String color;
 
     public TratamientoId getId() {
         return id;
@@ -38,5 +46,21 @@ public class Tratamiento {
 
     public void setPrimeratoma(LocalTime primeratoma) {
         this.primeratoma = primeratoma;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

@@ -10,6 +10,8 @@ public class TratamientoDTO implements Serializable {
     private TratamientoId id;
     private Integer tomasDiarias;
     private LocalTime primeratoma;
+    private String notas;
+    private String color;
 
     public TratamientoDTO() {
     }
@@ -36,5 +38,21 @@ public class TratamientoDTO implements Serializable {
 
     public void setPrimeratoma(LocalTime primeratoma) {
         this.primeratoma = primeratoma;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

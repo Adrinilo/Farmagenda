@@ -15,9 +15,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.adrinilo.farmagenda.dto.ErrorDetalles;
-/*
+
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<ErrorDetalles> manejarResourceNotFoundException(ResourceNotFoundException exception,WebRequest webRequest){
@@ -37,7 +37,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(errorDetalles,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		Map<String, String> errores = new HashMap<>();
@@ -50,4 +49,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		return new ResponseEntity<>(errores,HttpStatus.BAD_REQUEST);
 	}
-}*/
+}

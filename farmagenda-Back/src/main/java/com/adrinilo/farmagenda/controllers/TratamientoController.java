@@ -37,16 +37,24 @@ public class TratamientoController {
         return new ResponseEntity<>(tratamientoService.createTratamiento(tratamientoDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idpaciente}/{idmedicamento}")
     public ResponseEntity<TratamientoDTO> updateTratamiento(@Valid @RequestBody TratamientoDTO tratamientoDTO,
-                                                                @PathVariable(name = "id") TratamientoId id) {
-        TratamientoDTO tratamientoActualizado = tratamientoService.updateTratamiento(tratamientoDTO, id);
+                                                            @PathVariable(name = "idpaciente") String idpaciente, @PathVariable(name = "idmedicamento") String idmedicamento) {
+        TratamientoDTO tratamientoActualizado = new TratamientoDTO();
+        TratamientoId tratamientoId = new TratamientoId();
+        tratamientoId.setIdpaciente(idpaciente);
+        tratamientoId.setIdmedicamento(Long.parseLong(idmedicamento));
+        if (tratamientoId.equals(tratamientoDTO.getId())){
+            tratamientoActualizado = tratamientoService.updateTratamiento(tratamientoDTO, tratamientoId);
+        } else {
+            this.deleteTratamiento(tratamientoId);
+            tratamientoActualizado = this.createTratamiento(tratamientoDTO).getBody();
+        }
         return new ResponseEntity<>(tratamientoActualizado, HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<TratamientoDTO> deleteTratamiento(@RequestBody TratamientoId tratamientoId) {
-        //System.out.println(tratamientoId.toString());
         TratamientoDTO tratamientoDTO = tratamientoService.getTratamientoById(tratamientoId);
         tratamientoService.deleteTratamiento(tratamientoId);
         return new ResponseEntity<>(tratamientoDTO, HttpStatus.OK);

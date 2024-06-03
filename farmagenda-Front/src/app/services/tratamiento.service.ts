@@ -17,7 +17,12 @@ export class TratamientoService {
     return this.http.post<Tratamiento>(this.baseUrl, tratamiento);
   }
 
-  deleteTratamiento(tratamientoId: Tratamientoid): Observable<String> {
+  updatePersona(tratamiento: Tratamiento, tratamientoid: Tratamientoid): Observable<Tratamiento> {
+    const url = `${this.baseUrl}/${tratamientoid.idpaciente}/${tratamientoid.idmedicamento}`;
+    return this.http.put<Tratamiento>(url, tratamiento);
+  }
+
+  deleteTratamiento(tratamientoId: Tratamientoid): Observable<string> {
     const options = {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
       body: tratamientoId,

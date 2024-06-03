@@ -5,6 +5,7 @@ import { Persona } from '../../interfaces/persona.interface';
 import {
   Tratamiento,
   Tratamientoid,
+  createEmptyTratamientoId,
 } from '../../interfaces/tratamiento.interface';
 import {
   MedResponse,
@@ -16,6 +17,7 @@ import { TratamientoService } from '../../services/tratamiento.service';
 import { Observable, map } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../dialogs/confirmdialog/confirmdialog.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tratamientos',
@@ -24,35 +26,38 @@ import { ConfirmDialogComponent } from '../dialogs/confirmdialog/confirmdialog.c
 })
 export class TratamientosComponent implements OnInit {
   persona!: Persona;
-
+  formReg!: FormGroup;
+  buttonText: string = 'Añadir tratamiento';
+  showForm: boolean = false;
+  ttoUpdate: Tratamientoid = createEmptyTratamientoId(); // Tratamiento en edicion
   tratamientos: Tratamiento[] = [];
   medicamentos: Medicamento[] = [];
-  showForm: boolean = false;
-  nombreMed: string = '';
-  labMed: string = '';
-  tomasSeleccionadas: number = 0;
-  horaSeleccionada: string = '';
-  medSeleccionado: Medicamento | undefined;
+  medSeleccionado: Medicamento = createEmptyMedicamento();
 
   private _medResponse!: MedResponse;
 
   constructor(
-    private router: Router,
     private medicinaService: MedicinaService,
     private tratamientoService: TratamientoService,
     private personaService: PersonaService,
-    private dialog: MatDialog
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private router: Router
   ) {
     const personaString = localStorage.getItem('persona');
     if (personaString) {
       this.persona = JSON.parse(personaString);
     }
+    this.formReg = this.fb.group({
+      nombre: new FormControl(''),
+      laboratorio: new FormControl(''),
+      tomas: new FormControl(''),
+      hora: new FormControl(''),
+    });
   }
 
   ngOnInit() {
-    this.persona === null
-      ? this.router.navigate(['/'])
-      : this.setTratamientos();
+    this.setTratamientos();
   }
 
   setTratamientos() {
@@ -112,8 +117,8 @@ export class TratamientosComponent implements OnInit {
     //console.log(this.medSeleccionado?.nregistro)
     const tratamiento: Tratamiento = {
       id: id,
-      tomasDiarias: this.tomasSeleccionadas.toString(),
-      primeratoma: this.horaSeleccionada,
+      tomasDiarias: this.formReg.get('tomas')?.value,
+      primeratoma: this.formReg.get('hora')?.value,
       medicamento: createEmptyMedicamento(),
     };
 
@@ -134,9 +139,37 @@ export class TratamientosComponent implements OnInit {
     });
   }
 
+  updateTratamiento() {
+    const id: Tratamientoid = {
+      idpaciente: this.persona.id,
+      idmedicamento: this.medSeleccionado?.nregistro,
+    };
+    const tratamiento: Tratamiento = {
+      id: id,
+      tomasDiarias: this.formReg.get('tomas')?.value,
+      primeratoma: this.formReg.get('hora')?.value,
+      medicamento: this.medSeleccionado,
+    };
+
+    this.tratamientoService
+      .updatePersona(tratamiento, this.ttoUpdate)
+      .subscribe({
+        next: (data) => {
+          this.toggleShowForm();
+          this.setTratamientos();
+        },
+        error: (error) => {
+          console.error('Error al actualizar el tratamiento:', error);
+        },
+      });
+  }
+
   getMedicamentos() {
     this.medicinaService
-      .getMedicamentoByNombre(this.nombreMed, this.labMed)
+      .getMedicamentos(
+        this.formReg.get('nombre')?.value,
+        this.formReg.get('laboratorio')?.value
+      )
       .subscribe((data) => {
         this.medResponse = data;
         this.medicamentos = data.resultados.map((resultado: any) => {
@@ -160,10 +193,10 @@ export class TratamientosComponent implements OnInit {
       });
   }
 
-  onDelete(tratamiento: Tratamiento): void {    
+  onDelete(tratamiento: Tratamiento): void {
     this.tratamientoService.deleteTratamiento(tratamiento.id).subscribe({
       next: (data) => {
-        console.log("Tratamiento eliminado con exito: "+data);
+        console.log('Tratamiento eliminado con exito: ' + data);
         window.location.reload();
       },
       error: (error) => {
@@ -203,29 +236,76 @@ export class TratamientosComponent implements OnInit {
   }
 
   toggleShowForm(): void {
-    this.showForm = !this.showForm;
-    //console.log('showAddTratamiento:', this.showAddTratamiento);
+    if (!this.showForm) {
+      // Solo si es falso, por tanto se va a añadir un tratamiento
+      this.medSeleccionado = createEmptyMedicamento(); // Vaciamos el medicamento seleccionado
+      this.medicamentos = []; // Reiniciamos la lista de medicamentos
+      this.formReg.setValue({
+        // Vaciamos los datos del formulario
+        nombre: '',
+        laboratorio: '',
+        tomas: '',
+        hora: '',
+      });
+      this.buttonText = 'Añadir tratamiento';
+      this.showForm = true; // Mostramos el formulario
+    } else {
+      this.showForm = false;
+      this.ttoUpdate = createEmptyTratamientoId(); // En caso estar editando y pulsar en cancelar
+      this.formReg.get('nombre')?.enable();
+      this.formReg.get('laboratorio')?.enable();
+    }
   }
 
   toggleSelectMed(medicamento: Medicamento) {
     this.medSeleccionado = medicamento;
     this.medicamentos = [medicamento];
+    this.formReg.get('nombre')?.disable();
+    this.formReg.get('laboratorio')?.disable();
   }
 
   toggleDeselectMed() {
-    this.medSeleccionado = undefined;
+    this.medSeleccionado = createEmptyMedicamento();
     this.getMedicamentos();
+    this.formReg.get('nombre')?.enable();
+    this.formReg.get('laboratorio')?.enable();
   }
 
   toggleEdit(tratamiento: Tratamiento) {
-    this.medSeleccionado = undefined;
-    this.getMedicamentos();
+    this.medSeleccionado = tratamiento.medicamento;
+    this.medicamentos = [this.medSeleccionado];
+    this.formReg.setValue({
+      nombre: tratamiento.medicamento.nombre,
+      laboratorio: tratamiento.medicamento.labtitular,
+      tomas: tratamiento.tomasDiarias,
+      hora: tratamiento.primeratoma,
+    });
+    this.formReg.get('nombre')?.disable();
+    this.formReg.get('laboratorio')?.disable();
+
+    this.buttonText = 'Editar tratamiento';
+
+    this.ttoUpdate = tratamiento.id;
+    this.showForm = true;
   }
 
   onInputChange() {
-    this.nombreMed === '' && this.labMed === ''
+    this.formReg.get('nombre')?.value === '' &&
+    this.formReg.get('laboratorio')?.value === ''
       ? (this.medicamentos = [])
       : this.getMedicamentos();
+  }
+
+  onSubmit() {
+    this.ttoUpdate.idpaciente != ''
+      ? this.updateTratamiento()
+      : //console.log('en edición')
+        this.addTratamiento();
+    //console.log('en añadir');
+  }
+
+  consultar(medicamento: Medicamento) {
+    this.router.navigate([`/prospectos`, medicamento.nregistro]);
   }
 
   get medResponse(): MedResponse {

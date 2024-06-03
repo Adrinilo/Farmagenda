@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { Persona } from '../interfaces/persona.interface';
 import { Administracion, AdministracionId } from '../interfaces/administracion.interface';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
