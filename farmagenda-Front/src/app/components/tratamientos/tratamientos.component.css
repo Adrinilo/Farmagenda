@@ -5,6 +5,7 @@
     padding: 1rem;
     border-radius: 0.25rem;
     min-width: 14rem;
+    font-size: 1rem;
 }
 
 .btn-add:hover {
@@ -82,4 +83,8 @@
 .btn-delete:hover {
     background-color: rgb(185 28 28);
     text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}
+
+h2 {
+    margin: 0;
 }

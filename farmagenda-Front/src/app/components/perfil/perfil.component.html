@@ -6,25 +6,27 @@
         <button (click)="onLogout()" class="btn-logout">Cerrar Sesión</button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-5">
-        <div class="flex flex-col text-2xl">
-            <h2 class="font-semibold mb-2 underline underline-offset-4">TUS DATOS:</h2>
+        <div class="flex flex-col text-2xl rounded border-2 border-black bg-white p-4">
+            <h2 class="font-semibold mb-2 underline underline-offset-4">TUS DATOS</h2>
             <p>Nombre: {{ admin.nombre }}</p>
             <p>Email asociado: {{ admin.email }}</p>
             <p>Telefono asociado: {{ admin.telefono }}</p>
         </div>
         <div *ngIf="!adminSelected">
             <h2 class="font-semibold text-2xl uppercase">Paciente activo:</h2>
-            <div class="flex flex-col text-2xl rounded border-2 border-black p-4">
+            <div class="flex flex-col text-2xl rounded border-2 border-black p-4 bg-white">
                 <p>Nombre: {{ activo.nombre }}</p>
                 <p>Email asociado: {{ activo.email }}</p>
                 <p>Telefono asociado: {{ activo.telefono }}</p>
             </div>
         </div>
     </div>
-    <div *ngIf="personasACargo.length > 0" class="mt-20">
-        <h2 class="font-semibold mb-2 underline underline-offset-4 text-2xl uppercase">Pacientes a cargo:</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-4">
-            <div class="flex flex-col text-2xl rounded border-2 border-black p-4 justify-between"
+    <div *ngIf="personasACargo.length > 0">
+        <div class="bg-white p-3 pb-0 border-2 border-black rounded w-fit my-4">
+            <h2 class="font-semibold underline underline-offset-4 text-2xl uppercase">Pacientes a cargo</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="flex flex-col text-2xl rounded border-2 border-black bg-white p-4 justify-between"
                 *ngFor="let paciente of personasACargo">
                 <div>
                     <p>Nombre: {{ paciente.nombre }}</p>
@@ -32,9 +34,11 @@
                     <p>Telefono asociado: {{ paciente.telefono }}</p>
                 </div>
                 <div class="mt-5 flex gap-5">
-                    <button (click)="toggleSelectPerson(paciente)" class="btn-select grow text-xl md:col-span-2">Seleccionar
+                    <button (click)="toggleSelectPerson(paciente)"
+                        class="btn-select grow text-xl md:col-span-2">Seleccionar
                         Paciente</button>
-                    <button (click)="openDialogOptions(paciente)" class="btn-options flex-none text-3xl flex justify-center"> 
+                    <button (click)="openDialogOptions(paciente)"
+                        class="btn-options flex-none text-3xl flex justify-center">
                         <ng-icon name="heroCogSolid"></ng-icon>
                     </button>
                 </div>

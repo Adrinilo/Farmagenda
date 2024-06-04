@@ -1,19 +1,21 @@
 <div class="container-fluid p-10">
-    <div class="flex lg:flex-row lg:justify-between lg:items-center flex-col items-end mb-5 gap-5">
-        <h2 class="w-full lg:w-2/3 font-bold text-3xl uppercase lg:mb-0">
-            Mostrando tratamientos de {{persona.nombre }}</h2>
+    <div class="flex lg:flex-row lg:justify-between lg:items-center flex-col mb-5 gap-5">
+        <div class="flex items-center bg-white p-2 border-2 border-black rounded w-fit">
+            <h2 class="font-bold text-3xl uppercase">Mostrando tratamientos de {{persona.nombre }}</h2>
+        </div>
         <button *ngIf="!showForm" (click)="toggleShowForm()" class="btn-add">AÑADIR TRATAMIENTO</button>
         <button *ngIf="showForm" (click)="toggleShowForm()" class="btn-cancel">CANCELAR</button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4" *ngIf="!showForm && tratamientos.length > 0">
         <div *ngFor="let tratamiento of tratamientos"
-            class="p-4 text-xl rounded-md border-black border-2 flex flex-col gap-2">
+            class="p-4 text-xl rounded-md border-black border-2 flex flex-col gap-2 bg-white">
             <p class="capitalize text-center">{{ tratamiento.medicamento.nombre }}</p>
             <img src="{{tratamiento.medicamento.fotos[0]}}" alt="{{tratamiento.medicamento.nregistro}}_img.jpg"
                 class="w-full">
             <p>Tomas Diarias: {{ tratamiento.tomasDiarias }}</p>
             <p>Primera Toma: {{ tratamiento.primeratoma }}</p>
-            <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl">Consultar Prospecto</button>
+            <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl">Consultar
+                Prospecto</button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <button (click)="toggleEdit(tratamiento)" class="btn-editar">Editar</button>
                 <button (click)="openDialogDelete(tratamiento)" class="btn-delete">Eliminar</button>
@@ -29,13 +31,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 p-5 items-center">
                 <div class="flex flex-col gap-3 p-5 items-center">
                     <label for="nombreMed">Introduzca el nombre del medicamento</label>
-                    <input type="text" name="nombreMed" (input)="onInputChange()"
-                        formControlName="nombre" class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                    <input type="text" name="nombreMed" (input)="onInputChange()" formControlName="nombre"
+                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
                 </div>
                 <div class="flex flex-col gap-3 p-5 items-center">
                     <label for="labMed">Introduzca el laboratorio del medicamento</label>
-                    <input type="text" name="labMed" (input)="onInputChange()"
-                        formControlName="laboratorio" class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                    <input type="text" name="labMed" (input)="onInputChange()" formControlName="laboratorio"
+                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -59,7 +61,8 @@
                         *ngIf="medicamento === medSeleccionado">CANCELAR SELECCION</button>
                 </div>
             </div>
-            <div *ngIf="medicamentos.length <= 0 && (formReg.get('nombre')?.value !== '' || formReg.get('laboratorio')?.value !== '')">
+            <div
+                *ngIf="medicamentos.length <= 0 && (formReg.get('nombre')?.value !== '' || formReg.get('laboratorio')?.value !== '')">
                 <h2 class="text-lg text-red-500">No se han encontrado medicamentos que concuerden con los parametros
                     introducidos</h2>
             </div>
