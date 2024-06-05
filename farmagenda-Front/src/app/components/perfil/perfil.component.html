@@ -7,7 +7,12 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-5">
         <div class="flex flex-col text-2xl rounded border-2 border-black bg-white p-4">
-            <h2 class="font-semibold mb-2 underline underline-offset-4">TUS DATOS</h2>
+            <div class="flex justify-between">
+                <h2 class="font-semibold mb-2 underline underline-offset-4">TUS DATOS</h2>
+                <button (click)="onEdit(admin)" class="btn-options flex-none text-2xl flex justify-center">
+                    <ng-icon name="heroPencilSquareSolid"></ng-icon>
+                </button>
+            </div>
             <p>Nombre: {{ admin.nombre }}</p>
             <p>Email asociado: {{ admin.email }}</p>
             <p>Telefono asociado: {{ admin.telefono }}</p>
