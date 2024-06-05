@@ -25,48 +25,8 @@
     <div *ngIf="tratamientos.length === 0 && !showForm">
         <h2 class="text-xl text-bold uppercase">No hay tratamientos registrados para el paciente actual</h2>
     </div>
-    <form [formGroup]="formReg" (ngSubmit)="onSubmit()" *ngIf="showForm" class="flex flex-col gap-10">
-        <div>
-            <h3 class="text-2xl">Selecciona el medicamento</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 p-5 items-center">
-                <div class="flex flex-col gap-3 p-5 items-center">
-                    <label for="nombreMed">Introduzca el nombre del medicamento</label>
-                    <input type="text" name="nombreMed" (input)="onInputChange()" formControlName="nombre"
-                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
-                </div>
-                <div class="flex flex-col gap-3 p-5 items-center">
-                    <label for="labMed">Introduzca el laboratorio del medicamento</label>
-                    <input type="text" name="labMed" (input)="onInputChange()" formControlName="laboratorio"
-                        class="border border-black rounded p-1 w-2/3 lg:w-1/2">
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <div *ngFor="let medicamento of medicamentos"
-                    class="p-4 m-2 text-xl text-slate-200 rounded-md bg-gray-500 border-black border-2 flex flex-col gap-5">
-                    <!--[ngClass]="{'p-4 m-2 text-xl text-slate-200 rounded-md bg-gray-500 border-black border-2 flex flex-col gap-5': true, 'bg-gray-400': medicamento === medSeleccionado}">-->
-                    <p class="text-center">{{ medicamento.descripcion }}</p>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                        <img src="{{foto}}" alt="{{medicamento.nombre}}_img" *ngFor="let foto of medicamento.fotos"
-                            class="w-full">
-                    </div>
-                    <p>Nombre: <span class="capitalize">{{ medicamento.nombre }}</span></p>
-                    <p>Dosis: {{ medicamento.dosis }}</p>
-                    <p>Laboratorio: {{ medicamento.labtitular }}</p>
-                    <p>Forma Farmaceutica Simplificada: {{ medicamento.ffs }}</p>
-                    <p>Administracion: <span *ngFor="let via of medicamento.administracion"> {{ via }} </span></p>
-                    <p>Descripción: {{ medicamento.descripcion }}</p>
-                    <button class="btn-select mt-auto" (click)="toggleSelectMed(medicamento)"
-                        *ngIf="medicamento !== medSeleccionado">SELECCIONAR</button>
-                    <button class="btn-cancel mt-auto" (click)="toggleDeselectMed()"
-                        *ngIf="medicamento === medSeleccionado">CANCELAR SELECCION</button>
-                </div>
-            </div>
-            <div
-                *ngIf="medicamentos.length <= 0 && (formReg.get('nombre')?.value !== '' || formReg.get('laboratorio')?.value !== '')">
-                <h2 class="text-lg text-red-500">No se han encontrado medicamentos que concuerden con los parametros
-                    introducidos</h2>
-            </div>
-        </div>
+    <form [formGroup]="parentForm" (ngSubmit)="onSubmit()" *ngIf="showForm" class="flex flex-col gap-10">
+        <app-formmed [parentForm]="parentForm" (medSelected)="onMedSelected($event)"></app-formmed>
         <div class="flex flex-col md:flex-row gap-10">
             <div class="md:w-1/2 flex flex-col">
                 <h3 class="text-2xl">Indique las tomas diarias</h3>

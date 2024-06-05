@@ -14,10 +14,6 @@ export class ProspectoMostrarComponent {
     private route: ActivatedRoute,
     private medicinaService: MedicinaService
   ) {
-    /*const nregistro = this.route.snapshot.paramMap.get('nregistro');
-    if (nregistro) {
-      this.obtenerProspecto(nregistro)
-    }*/
     this.route.paramMap.subscribe((params) => {
       const nregistro = params.get('nregistro');
       if (nregistro) {

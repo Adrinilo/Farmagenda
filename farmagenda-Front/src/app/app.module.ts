@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './components/dialogs/confirmdialog/confirmdialog.component';
 import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optionsdialog.component';
 import { ProspectoMostrarComponent } from './components/prospectomostrar/prospectomostrar.component';
+import { FormmedComponent } from './components/formmed/formmed.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,7 +69,8 @@ const icons = {
     RegisterPacienteComponent,
     ConfirmDialogComponent,
     OptionsDialogComponent,
-    ProspectoMostrarComponent
+    ProspectoMostrarComponent,
+    FormmedComponent
   ],
   imports: [
     BrowserModule,
