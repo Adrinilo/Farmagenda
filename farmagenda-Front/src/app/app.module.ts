@@ -14,7 +14,7 @@ import { ProspectoComponent } from './components/prospecto/prospecto.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { heroHome, heroClipboardDocumentList, heroCalendarDays, heroDocumentText } from '@ng-icons/heroicons/outline';
-import { heroUserCircleSolid, heroCogSolid } from '@ng-icons/heroicons/solid';
+import { heroUserCircleSolid, heroCogSolid, heroPencilSquareSolid, heroArrowTopRightOnSquareSolid } from '@ng-icons/heroicons/solid';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -52,7 +52,9 @@ const icons = {
   heroDocumentText,
   heroCalendarDays,
   heroUserCircleSolid,
-  heroCogSolid
+  heroCogSolid,
+  heroPencilSquareSolid,
+  heroArrowTopRightOnSquareSolid
 };
 
 @NgModule({

@@ -3,17 +3,50 @@
         <div class="flex items-center text-3xl bg-white p-2 border border-black rounded">
             <p>Bienvenido {{admin}}</p>
         </div>
-        <button (click)="onClickAjustes()" class="btn-select">AJUSTES</button>
+        <button (click)="onClickAjustes()" class="btn-select">
+            <ng-icon name="heroCogSolid" class="text-2xl"></ng-icon>
+            AJUSTES
+        </button>
     </div>
     <div class="h-full w-full flex justify-center pt-5">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-3/4 h-2/3 mt-5">
             <!-- rel="noopener noreferrer" evita que la nueva página tenca acceso al objeto window.opener -->
-            <a href="https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/home.htm" class="btn" target="_blank" rel="noopener noreferrer">VACUNAS</a>
-            <a href="https://sescam.jccm.es/misaluddigital/#/app/citas/primaria" class="btn" target="_blank" rel="noopener noreferrer">CITA ATENCION PRIMARIA</a>
-            <a href="https://sanidad.castillalamancha.es/ciudadanos/hazte-donante-sangre/colectas-donantes-de-sangre/toledo" class="btn" target="_blank" rel="noopener noreferrer">DONACIONES DE SANGRE</a>
-            <a href="https://www.aemps.gob.es/apps/cima/docs/medicamentosygluten.pdf" class="btn" target="_blank" rel="noopener noreferrer">Medicamentos y gluten</a>
-            <a href="https://www.aemps.gob.es/industria-farmaceutica/etiquetado-y-prospectos/informacion-y-simbologia-en-el-etiquetado-de-los-medicamentos/" class="btn" target="_blank" rel="noopener noreferrer">Información etiquetado</a>
-            <a href="https://cima.aemps.es/cima/publico/tutorialprospecto.html" class="btn" target="_blank" rel="noopener noreferrer">Información prospecto</a>
+            <a href="https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/home.htm" class="btn-link"
+                target="_blank" rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                VACUNAS
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
+            <a href="https://sescam.jccm.es/misaluddigital/#/app/citas/primaria" class="btn-link" target="_blank"
+                rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                CITA ATENCION PRIMARIA
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
+            <a href="https://sanidad.castillalamancha.es/ciudadanos/hazte-donante-sangre/colectas-donantes-de-sangre/toledo"
+                class="btn-link" target="_blank" rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                DONACIONES DE SANGRE
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
+            <a href="https://www.aemps.gob.es/apps/cima/docs/medicamentosygluten.pdf" class="btn-link" target="_blank"
+                rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                Medicamentos y gluten
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
+            <a href="https://www.aemps.gob.es/industria-farmaceutica/etiquetado-y-prospectos/informacion-y-simbologia-en-el-etiquetado-de-los-medicamentos/"
+                class="btn-link" target="_blank" rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                Información etiquetado
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
+            <a href="https://cima.aemps.es/cima/publico/tutorialprospecto.html" class="btn-link" target="_blank"
+                rel="noopener noreferrer">
+                <ng-icon name="heroCogSolid"></ng-icon>
+                Información prospecto
+                <ng-icon name="heroArrowTopRightOnSquareSolid" class="hover-icon"></ng-icon>
+            </a>
         </div>
     </div>
 </div>
