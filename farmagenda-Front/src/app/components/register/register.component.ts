@@ -11,14 +11,14 @@ import { PersonaService } from '../../services/persona.service';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  formReg: FormGroup;
+  parentForm: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private personaService: PersonaService
   ) {
-    this.formReg = new FormGroup({
+    this.parentForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
@@ -33,7 +33,7 @@ export class RegisterComponent {
 
   onSubmit() {
     this.authService
-      .register(this.formReg.value)
+      .register(this.parentForm.value)
       .then((response) => {
         this.createUser(response.user.uid);
       })
@@ -44,9 +44,9 @@ export class RegisterComponent {
   createUser(uid: string): void {
     const persona: Persona = {
       id: uid,
-      nombre: this.formReg.value.nombre,
-      telefono: this.formReg.value.telefono,
-      email: this.formReg.value.email
+      nombre: this.parentForm.value.nombre,
+      telefono: this.parentForm.value.telefono,
+      email: this.parentForm.value.email
     };
 
     this.personaService.createPersona(persona).subscribe({

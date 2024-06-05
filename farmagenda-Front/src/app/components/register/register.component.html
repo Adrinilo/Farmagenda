@@ -1,7 +1,7 @@
 <div class="h-full flex flex-col bg-slate-400 overflow-x-auto items-center p-5">
     <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 bg-white rounded-lg shadow-lg text-2xl">
         <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Registro nuevos usuarios</h2>
-        <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+        <form [formGroup]="parentForm" (ngSubmit)="onSubmit()">
             <div class="mb-4">
                 <label for="nombre" class="block font-medium text-gray-700">Nombre</label>
                 <input type="text" formControlName="nombre"

@@ -1,7 +1,10 @@
 <div class="h-full flex flex-col overflow-x-auto items-center p-5">
-    <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 rounded-lg shadow-lg text-2xl border-2 border-black">
+    <div class="flex justify-end w-full mb-5">
+        <button routerLink="/perfil" class="btn-cancel">CANCELAR</button>
+    </div>
+    <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 rounded-lg shadow-lg text-2xl border-2 border-black bg-white">
         <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">{{titleText}}</h2>
-        <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+        <form [formGroup]="parentForm" (ngSubmit)="onSubmit()">
             <div class="mb-4">
                 <label for="nombre" class="block font-medium text-gray-700">Nombre</label>
                 <input type="text" formControlName="nombre"
@@ -21,7 +24,7 @@
                     placeholder="Indique el correo electronico asociado">
                 <p class="ps-1 text-sm mb-2" *ngIf="!paciente">(Ejemplo: correo&#64;gmail.com)</p>
             </div>
-            <p class="text-sm mb-2" *ngIf="!paciente">*(Si deja los campos vacios se asignaran los suyos)</p>
+            <p class="text-sm mb-2" *ngIf="!paciente">*(Si deja los campos vacios se asignaran los que usted ha empleado para registrarse)</p>
             <button
                 class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                 type="submit">{{buttonText}}</button>

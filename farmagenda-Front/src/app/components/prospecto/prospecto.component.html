@@ -1,1 +1,3 @@
-<p>prospecto works!</p>
+<form [formGroup]="parentForm" class="flex flex-col gap-10 m-10">
+    <app-formmed [parentForm]="parentForm" (medSelected)="onMedSelected($event)"></app-formmed>
+</form>

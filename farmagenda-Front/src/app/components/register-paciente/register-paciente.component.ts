@@ -13,7 +13,7 @@ import { AdministracionService } from '../../services/administracion.service';
   styleUrl: './register-paciente.component.css',
 })
 export class RegisterPacienteComponent implements OnInit {
-  formReg: FormGroup;
+  parentForm: FormGroup;
   admin!: Persona;
   paciente!: Persona;
   buttonText: string = 'Registrar';
@@ -28,7 +28,7 @@ export class RegisterPacienteComponent implements OnInit {
     if (pacienteString) {
       this.paciente = JSON.parse(pacienteString);
     }
-    this.formReg = new FormGroup({
+    this.parentForm = new FormGroup({
       email: new FormControl(this.paciente?.email || '', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
@@ -38,6 +38,7 @@ export class RegisterPacienteComponent implements OnInit {
       telefono: new FormControl(this.paciente?.telefono || '', [Validators.maxLength(9)]),
     });
   }
+
   ngOnInit(): void {
     const adminString = localStorage.getItem('admin');
     if (adminString) {
@@ -72,9 +73,9 @@ export class RegisterPacienteComponent implements OnInit {
   createPaciente(): void {
     const persona: Persona = {
       id: this.generarId(),
-      nombre: this.formReg.value.nombre,
-      telefono: this.formReg.value.telefono === '' ? this.admin.telefono : this.formReg.value.telefono,
-      email: this.formReg.value.email === '' ? this.admin.email : this.formReg.value.email
+      nombre: this.parentForm.value.nombre,
+      telefono: this.parentForm.value.telefono === '' ? this.admin.telefono : this.parentForm.value.telefono,
+      email: this.parentForm.value.email === '' ? this.admin.email : this.parentForm.value.email
     };
     //console.log(persona);
 
@@ -104,15 +105,16 @@ export class RegisterPacienteComponent implements OnInit {
   updatePaciente(): void {
     const persona: Persona = {
       id: this.paciente.id,
-      nombre: this.formReg.value.nombre,
-      telefono: this.formReg.value.telefono === '' ? this.paciente.telefono : this.formReg.value.telefono,
-      email: this.formReg.value.email === '' ? this.paciente.email : this.formReg.value.email
+      nombre: this.parentForm.value.nombre,
+      telefono: this.parentForm.value.telefono === '' ? this.paciente.telefono : this.parentForm.value.telefono,
+      email: this.parentForm.value.email === '' ? this.paciente.email : this.parentForm.value.email
     };
     //console.log(persona);
 
     this.personaService.updatePersona(persona).subscribe({
       next: (data) => {
         console.log('Persona actualizada con exito:', data);
+        persona.id === this.admin.id ? localStorage.setItem('admin', JSON.stringify(persona)) : '';
         this.router.navigate(['/perfil']);
       },
       error: (error) => {
