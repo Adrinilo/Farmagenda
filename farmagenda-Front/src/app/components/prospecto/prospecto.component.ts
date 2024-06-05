@@ -15,6 +15,7 @@ export class ProspectoComponent {
   constructor(
     private fb: FormBuilder
   ) {
+    localStorage.removeItem('medSelected');
     this.parentForm = this.fb.group({
       nombre: new FormControl(''),
       laboratorio: new FormControl('')

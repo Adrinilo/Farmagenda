@@ -262,6 +262,7 @@ export class TratamientosComponent implements OnInit {
   }
 
   onSubmit() {
+    localStorage.removeItem('medSelected');
     this.ttoUpdate.idpaciente != ''
       ? this.updateTratamiento()
       : this.addTratamiento();
