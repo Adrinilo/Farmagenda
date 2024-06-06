@@ -1,0 +1,19 @@
+.btn-login {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    min-width: 14rem;
+    border-color: rgb(10, 10, 10);
+}
+
+.btn-login:hover {
+    background-color: #6565ff;
+    text-shadow: 2px 2px 4px rgb(10, 10, 10);
+}
+
+form div p {
+    margin: 0;
+    font-size: large;
+}

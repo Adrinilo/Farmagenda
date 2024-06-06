@@ -31,6 +31,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirmdialog/confi
 import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optionsdialog.component';
 import { ProspectoMostrarComponent } from './components/prospectomostrar/prospectomostrar.component';
 import { FormmedComponent } from './components/formmed/formmed.component';
+import { WindowService } from './services/window.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,7 +90,8 @@ const icons = {
     MatButtonModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    WindowService
   ],
   bootstrap: [AppComponent]
 

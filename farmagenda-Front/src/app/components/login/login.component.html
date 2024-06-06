@@ -1,34 +1,96 @@
-<div class="h-full flex flex-col bg-slate-400 items-center p-10 md:px-0">
-    <div class="w-full md:w-2/3 lg:w-1/3 p-4 bg-white rounded-t-lg shadow-lg text-2xl">
+<div class="h-full flex flex-col items-center p-10 md:px-0">
+    <div class="w-full md:w-2/3 lg:w-1/3 p-4 bg-white rounded-t-lg shadow-lg text-2xl border border-black border-b-0">
         <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Inicio de sesión</h2>
-        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="">
-
+        <!-- Formulario Registro correo y contraseña-->
+        <form [formGroup]="formLogin" #myForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!showphoneform && !windowRef.confirmationResult">
             <div class="mb-4">
                 <label for="email" class="block font-medium text-gray-700">Correo electrónico</label>
                 <input type="email" formControlName="email"
                     class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
                     placeholder="correo@gmail.com">
+                <p class="text-red-600"
+                    *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.touched || myForm.submitted) && !formLogin.get('email')?.value">
+                    Campo obligatorio
+                </p>
+                <p class="text-red-600"
+                    *ngIf="formLogin.get('email')?.invalid && formLogin.get('email')?.value && myForm.submitted">
+                    Correo electrónico invalido
+                </p>
             </div>
             <div class="mb-4">
                 <label for="password" class="block font-medium text-gray-700">Contraseña</label>
                 <input type="password" formControlName="password"
                     class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
                     placeholder="Escriba su contraseña" autocomplete="current-password">
+                <p class="text-red-600"
+                    *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.touched || myForm.submitted) && !formLogin.get('password')?.value">
+                    Campo obligatorio
+                </p>
+                <p class="text-red-600"
+                    *ngIf="formLogin.get('password')?.hasError('passwordStrength') && formLogin.get('password')?.touched && formLogin.get('password')?.value">
+                    La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y
+                    caracteres especiales.
+                </p>
             </div>
-
             <button
                 class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                 type="submit">Entrar</button>
         </form>
+        <!-- Formulario Registro Telefono-->
+        <form [formGroup]="formPhone" (ngSubmit)="sendLoginCode()" *ngIf="showphoneform">
+            <div>
+                <label for="prefijo" class="block font-medium text-gray-700">Número de telefono</label>
+                <div class="flex">
+                    <div>
+                        <input type="text" maxlength="2" formControlName="prefijo"
+                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                            placeholder="+34">
+                        <p class="text-red-600"
+                            *ngIf="formPhone.get('prefijo')?.invalid && formPhone.get('prefijo')?.touched && !formPhone.get('prefijo')?.value">
+                            Campo obligatorio
+                        </p>
+                    </div>
+                    <div>
+                        <input type="text" pattern="\d*" formControlName="telefono"
+                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                            placeholder="650-555-3434">
+                        <p class="text-red-600"
+                            *ngIf="formPhone.get('telefono')?.invalid && formPhone.get('telefono')?.touched && !formPhone.get('telefono')?.value">
+                            Campo obligatorio
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                type="submit">Enviar Codigo</button>
+        </form>
+        <div id="recaptcha-container" class="mt-2" [ngClass]="showphoneform ? 'visible' : 'hidden'"></div>
+        <!-- Formulario Verificacion telefono-->
+        <form [formGroup]="formCode" (ngSubmit)="verifyLoginCode()" *ngIf="windowRef.confirmationResult">
+            <div class="mb-4">
+                <label for="code" class="block font-medium text-gray-700">Código de verificación</label>
+                <input type="text" pattern="\d*" formControlName="code"
+                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm rounded-md border border-black">
+                <p class="text-red-600"
+                    *ngIf="formCode.get('code')?.invalid && formCode.get('code')?.touched && !formCode.get('code')?.value">
+                    Campo obligatorio
+                </p>
+            </div>
+            <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                type="submit">Verificar</button>
+        </form>
     </div>
-    <button routerLink="/register" class="w-full md:w-2/3 lg:w-1/3 bg-green-600 text-white text-2xl py-2 rounded-b-md 
-    hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-50">Registro para
-    nuevos usuarios</button>
+    <button routerLink="/register"
+        class="w-full md:w-2/3 lg:w-1/3 bg-green-600 text-white text-2xl py-2 rounded-b-md 
+    hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-800 focus:ring-opacity-50 border-black border border-t-0">Registro para
+        nuevos usuarios</button>
     <div class="w-full md:w-2/3 lg:w-1/3 mt-5 flex gap-5">
-        <button routerLink="/google" class="w-1/2 bg-red-600 text-white text-xl p-4 rounded-full
+        <button (click)="onGoogleLogin()" class="w-1/2 bg-red-600 text-white text-xl p-4 rounded-full
         hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-800 focus:ring-opacity-50">Inicio de sesión con
-            google</button>
-        <button routerLink="/telefono" class="w-1/2 bg-purple-600 text-white text-xl p-4 rounded-full
+            Google</button>
+        <button (click)="onPhoneLogin()" class="w-1/2 bg-purple-600 text-white text-xl p-4 rounded-full
         hover:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-800 focus:ring-opacity-50">Inicio de sesión
             con Telefono</button>
     </div>
