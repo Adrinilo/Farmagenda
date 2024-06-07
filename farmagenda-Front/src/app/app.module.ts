@@ -16,6 +16,9 @@ import { NgIconsModule } from '@ng-icons/core';
 import { heroHome, heroClipboardDocumentList, heroCalendarDays, heroDocumentText } from '@ng-icons/heroicons/outline';
 import { heroUserCircleSolid, heroCogSolid, heroPencilSquareSolid, heroArrowTopRightOnSquareSolid, heroPhoneSolid } from '@ng-icons/heroicons/solid';
 import { bootstrapGoogle } from '@ng-icons/bootstrap-icons';
+import { matVaccinesOutline, matLocalHospitalOutline, matHearingDisabledOutline, matFeaturedPlayListOutline } from '@ng-icons/material-icons/outline';
+import { matBloodtypeRound } from '@ng-icons/material-icons/round';
+import { lucideWheat } from '@ng-icons/lucide';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -63,7 +66,13 @@ const icons = {
   heroPencilSquareSolid,
   heroArrowTopRightOnSquareSolid,
   heroPhoneSolid,
-  bootstrapGoogle
+  bootstrapGoogle,
+  matVaccinesOutline,
+  matBloodtypeRound,
+  matLocalHospitalOutline,
+  lucideWheat,
+  matHearingDisabledOutline,
+  matFeaturedPlayListOutline
 };
 
 @NgModule({

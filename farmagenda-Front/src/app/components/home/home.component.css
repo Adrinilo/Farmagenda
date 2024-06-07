@@ -3,18 +3,18 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #6b7280;
-  color: white;
+  background-color: #d4d4d4;
+  color: black;
   border: 2px solid black;
   border-radius: 5px;
   height: 7rem;
   font-size: x-large;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
 .btn-link:hover {
-  background-color: #808899;
-  text-shadow: 2px 2px 4px rgb(10, 10, 10);
+  background-color: #e5e5e5;
 }
 
 .btn-link .hover-icon {
@@ -28,7 +28,7 @@
 }
 
 .btn-link ng-icon {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
 }
 
 .btn-select {
