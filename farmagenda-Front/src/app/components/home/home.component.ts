@@ -9,10 +9,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomeComponent {
   admin!: String;
 
-  constructor(private snackBar: MatSnackBar) {    const adminString = localStorage.getItem('admin');
-  if (adminString) {
-    this.admin = JSON.parse(adminString).nombre;
-  }}
+  constructor(private snackBar: MatSnackBar) {
+    const adminString = localStorage.getItem('admin');
+    if (adminString) {
+      this.admin = JSON.parse(adminString).nombre;
+    }
+  }
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Cerrar', {

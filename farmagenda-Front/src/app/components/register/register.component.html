@@ -4,7 +4,8 @@
     </div>
     <div class="w-full md:w-2/3 lg:w-3/5 xl:w-2/5 p-4 bg-white rounded-lg shadow-lg text-2xl border border-black">
         <h2 class="text-4xl mb-5 mt-1 text-center font-semibold uppercase">Registro nuevos usuarios</h2>
-        <form [formGroup]="parentForm" #myForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!showphoneform && !windowRef.confirmationResult">
+        <form [formGroup]="parentForm" #myForm="ngForm" (ngSubmit)="onSubmit()"
+            *ngIf="!showphoneform && !windowRef.confirmationResult">
             <div class="mb-4">
                 <label for="nombre" class="block font-medium text-gray-700">Nombre</label>
                 <input type="text" formControlName="nombre"
@@ -49,51 +50,51 @@
                 class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                 type="submit">Registrar</button>
         </form>
-                <!-- Formulario Registro Telefono-->
-                <form [formGroup]="formPhone" #myForm="ngForm" (ngSubmit)="sendLoginCode()" *ngIf="showphoneform">
+        <!-- Formulario Registro Telefono-->
+        <form [formGroup]="formPhone" #myForm="ngForm" (ngSubmit)="sendLoginCode()" *ngIf="showphoneform">
+            <div>
+                <label for="prefijo" class="block font-medium text-gray-700">Número de telefono</label>
+                <div class="flex">
                     <div>
-                        <label for="prefijo" class="block font-medium text-gray-700">Número de telefono</label>
-                        <div class="flex">
-                            <div>
-                                <input type="text" maxlength="2" formControlName="prefijo"
-                                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
-                                    placeholder="+34">
-                                <p class="text-red-600"
-                                    *ngIf="formPhone.get('prefijo')?.invalid && (parentForm.get('prefijo')?.touched || myForm.submitted) && !formPhone.get('prefijo')?.value">
-                                    Campo obligatorio
-                                </p>
-                            </div>
-                            <div>
-                                <input type="text" pattern="\d*" formControlName="telefono"
-                                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
-                                    placeholder="650-555-3434">
-                                <p class="text-red-600"
-                                    *ngIf="formPhone.get('telefono')?.invalid && (parentForm.get('telefono')?.touched || myForm.submitted) && !formPhone.get('telefono')?.value">
-                                    Campo obligatorio
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        type="submit">Enviar Codigo</button>
-                </form>
-                <div id="recaptcha-container" class="mt-2" [ngClass]="showphoneform ? 'visible' : 'hidden'"></div>
-                <!-- Formulario Verificacion telefono-->
-                <form [formGroup]="formCode" (ngSubmit)="verifyLoginCode()" *ngIf="windowRef.confirmationResult">
-                    <div class="mb-4">
-                        <label for="code" class="block font-medium text-gray-700">Código de verificación</label>
-                        <input type="text" pattern="\d*" formControlName="code"
-                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm rounded-md border border-black">
+                        <input type="text" maxlength="2" formControlName="prefijo"
+                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                            placeholder="+34">
                         <p class="text-red-600"
-                            *ngIf="formCode.get('code')?.invalid && formCode.get('code')?.touched && !formCode.get('code')?.value">
+                            *ngIf="formPhone.get('prefijo')?.invalid && (parentForm.get('prefijo')?.touched || myForm.submitted) && !formPhone.get('prefijo')?.value">
                             Campo obligatorio
                         </p>
                     </div>
-                    <button
-                        class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                        type="submit">Verificar</button>
-                </form>
+                    <div>
+                        <input type="text" pattern="\d*" formControlName="telefono"
+                            class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm border-gray-300 rounded-md"
+                            placeholder="650-555-3434">
+                        <p class="text-red-600"
+                            *ngIf="formPhone.get('telefono')?.invalid && (parentForm.get('telefono')?.touched || myForm.submitted) && !formPhone.get('telefono')?.value">
+                            Campo obligatorio
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                type="submit">Enviar Codigo</button>
+        </form>
+        <div id="recaptcha-container" class="mt-2" [ngClass]="showphoneform ? 'visible' : 'hidden'"></div>
+        <!-- Formulario Verificacion telefono-->
+        <form [formGroup]="formCode" (ngSubmit)="verifyLoginCode()" *ngIf="windowRef.confirmationResult">
+            <div class="mb-4">
+                <label for="code" class="block font-medium text-gray-700">Código de verificación</label>
+                <input type="text" pattern="\d*" formControlName="code"
+                    class="mt-1 p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm rounded-md border border-black">
+                <p class="text-red-600"
+                    *ngIf="formCode.get('code')?.invalid && formCode.get('code')?.touched && !formCode.get('code')?.value">
+                    Campo obligatorio
+                </p>
+            </div>
+            <button
+                class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                type="submit">Verificar</button>
+        </form>
     </div>
     <div class="w-full md:w-2/3 lg:w-1/3 mt-5 flex gap-5">
         <button (click)="onGoogleLogin()" class="w-1/2 bg-red-600 text-white text-xl p-4 rounded-full

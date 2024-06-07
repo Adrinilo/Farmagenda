@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   Auth,
   RecaptchaVerifier,
+  User,
   signInWithPhoneNumber,
 } from '@angular/fire/auth';
 import { WindowService } from '../../services/window.service';
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   formPhone: FormGroup;
   formCode: FormGroup;
   error: boolean = false;
-  
+
   windowRef: any;
   showphoneform: boolean = false;
 
@@ -47,11 +48,14 @@ export class LoginComponent implements OnInit {
       ]),
     });
     this.formPhone = new FormGroup({
-      prefijo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
-      telefono: new FormControl('', [Validators.required])
+      prefijo: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]+$'),
+      ]),
+      telefono: new FormControl('', [Validators.required]),
     });
     this.formCode = new FormGroup({
-      code: new FormControl('', [Validators.required])
+      code: new FormControl('', [Validators.required]),
     });
   }
 
@@ -70,7 +74,7 @@ export class LoginComponent implements OnInit {
       this.authService
         .login(this.formLogin.value)
         .then((response) => {
-          this.onSuccess(response.user.uid);
+          this.onSuccess(response.user);
         })
         .catch((error) => console.log('Login error: ' + error));
     }
@@ -80,7 +84,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .loginWithGoogle()
       .then((response) => {
-        this.onSuccess(response.user.uid);
+        this.onSuccess(response.user);
         //console.log(response)
       })
       .catch((error) => {
@@ -113,13 +117,13 @@ export class LoginComponent implements OnInit {
       .then((result: any) => {
         this.onSuccess(result.user);
         //console.log('usuario confirmado')
-        console.log(result.user)
+        console.log(result.user);
       })
       .catch((error: any) => console.log(error, 'Codigo incorrecto'));
   }
 
-  onSuccess(uid: string): void {
-    this.personaService.getPersonaById(uid).subscribe({
+  onSuccess(user: User): void {
+    this.personaService.getPersonaById(user.uid).subscribe({
       next: (data) => {
         // Registro de paciente activo
         localStorage.setItem('persona', JSON.stringify(data));
@@ -130,7 +134,8 @@ export class LoginComponent implements OnInit {
       error: (error) => {
         console.error('Error al obtener la persona:', error);
         localStorage.removeItem('persona');
-        this.openSnackBar('Ha ocurrido un error. intentelo de nuevo');
+        this.authService.deleteUser(user);
+        this.openSnackBar('Ha ocurrido un error. Compruebe que está registrado');
       },
     });
   }

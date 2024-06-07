@@ -14,9 +14,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { WindowService } from '../../services/window.service';
 import {
   Auth,
+  AuthErrorCodes,
   RecaptchaVerifier,
+  User,
   signInWithPhoneNumber,
 } from '@angular/fire/auth';
+import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-register',
@@ -78,9 +81,18 @@ export class RegisterComponent {
       this.authService
         .register(this.parentForm.value)
         .then((response) => {
-          this.createUser(response.user.uid);
+          this.createUser(response.user);
         })
-        .catch((error) => console.log('Register error: ' + error));
+        .catch((error) => {
+          console.log('Register error: ' + error);
+          if (error instanceof FirebaseError) {
+            if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+              this.openSnackBar(
+                'El correo ya está registrado'
+              );
+            }
+          }
+        });
     }
   }
 
@@ -88,7 +100,7 @@ export class RegisterComponent {
     this.authService
       .loginWithGoogle()
       .then((response) => {
-        this.createUser(response.user.uid);
+        this.createUser(response.user);
         //console.log(response)
       })
       .catch((error) => {
@@ -107,7 +119,6 @@ export class RegisterComponent {
       appVerifier
         .verify()
         .then(() => {
-          console.log('prueba');
           const prefijo = this.formPhone.get('prefijo')?.value;
           const telefono = this.formPhone.get('telefono')?.value;
           const num = `+${prefijo} ${telefono}`;
@@ -144,13 +155,27 @@ export class RegisterComponent {
   }
 
   //Crea usuario en bd y almacena en local de la app
-  createUser(uid: string): void {
+  createUser(user: User): void {
     const persona: Persona = {
-      id: uid,
-      nombre: this.parentForm.value.nombre,
-      telefono: this.parentForm.value.telefono,
-      email: this.parentForm.value.email,
+      id: user.uid,
+      nombre:
+        this.parentForm.value.nombre == ''
+          ? user.email == null
+            ? user.phoneNumber?.slice(3,12)
+            : user.email?.split('@')[0]
+          : this.parentForm.value.nombre,
+      telefono:
+        this.parentForm.value.telefono == ''
+          ? user.phoneNumber?.slice(3,12)
+          : this.parentForm.value.telefono,
+      email:
+        this.parentForm.value.email == ''
+          ? user.email
+          : this.parentForm.value.email,
     };
+
+    //console.log(persona)
+    //console.log(user.email.split('@')[0])
 
     this.personaService.createPersona(persona).subscribe({
       next: (data) => {
@@ -162,6 +187,12 @@ export class RegisterComponent {
       },
       error: (error) => {
         console.error('Error al crear la persona:', error);
+        console.error(error.error);
+        console.error(error.message);
+        this.authService.deleteUser(user);
+        this.openSnackBar('Error al registrar, puede que el usuario ya exista');
+        this.windowRef.confirmationResult = '';
+        this.showphoneform = false;
       },
     });
   }

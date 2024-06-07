@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class PersonaDTO implements Serializable {
     private String id;
     @NotEmpty
-    @Size(max = 10, message = "El nombre no puede tener más de 10 caracteres")
+    @Size(max = 30, message = "El nombre no puede tener más de 30 caracteres")
     private String nombre;
     @Size(max = 9,min = 9, message = "El telefono tiene que tener 9 numeros")
     private String telefono;
