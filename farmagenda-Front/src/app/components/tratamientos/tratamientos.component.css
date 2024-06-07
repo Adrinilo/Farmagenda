@@ -57,7 +57,7 @@
 }
 
 .btn-editar {
-    background-color: blue;
+    background-color: #0891b2;
     color: white;
     font-weight: bold;
     padding: 0.6rem;
@@ -67,7 +67,7 @@
 }
 
 .btn-editar:hover {
-    background-color: rgb(141, 141, 255);
+    background-color: #06b6d4;
     text-shadow: 2px 2px 4px rgb(10, 10, 10);
 }
 
