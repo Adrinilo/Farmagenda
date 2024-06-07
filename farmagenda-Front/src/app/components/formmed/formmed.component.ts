@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MedicinaService } from '../../services/medicina.service';
 import {
@@ -7,6 +7,7 @@ import {
   createEmptyMedicamento,
 } from '../../interfaces/medicamento.interface';
 import { Router } from '@angular/router';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-formmed',
@@ -16,9 +17,17 @@ import { Router } from '@angular/router';
 export class FormmedComponent {
   @Input() parentForm!: FormGroup;
   medicamentos: Medicamento[] = [];
+  medicamentosFull: Medicamento[] = [];
   private _medResponse!: MedResponse;
   @Output() medSelected = new EventEmitter<Medicamento>();
   medSeleccionado!: Medicamento;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  totalLength = this.medicamentosFull.length; // El número total de elementos
+  pageSize = 25; // Tamaño de página por defecto
+  page = 1; // Tamaño de página por defecto
+  pageSizeOptions: number[] = [4, 8, 16, 32];
   
   constructor(
     private medicinaService: MedicinaService,
@@ -43,10 +52,12 @@ export class FormmedComponent {
     this.medicinaService
       .getMedicamentos(
         this.parentForm.get('nombre')?.value,
-        this.parentForm.get('laboratorio')?.value
+        this.parentForm.get('laboratorio')?.value,
+        this.page
       )
       .subscribe((data) => {
         this.medResponse = data;
+        this.totalLength = this.medResponse.totalFilas
         this.medicamentos = data.resultados.map((resultado: any) => {
           return {
             nregistro: resultado.nregistro,
@@ -63,7 +74,10 @@ export class FormmedComponent {
               : [],
             docs: resultado.docs.length > 1 ? [resultado.docs[1]] : [],
           } as Medicamento;
+
         });
+
+        this.medicamentosFull = this.medicamentos
         //console.log(this.medicamentos)
       });
   }
@@ -72,10 +86,26 @@ export class FormmedComponent {
     this.router.navigate([`/prospectos`, nregistro]);
   }
 
+
+  ngAfterViewInit() {
+    this.paginator.page.subscribe((event: PageEvent) => {
+      console.log(event);
+      this.updatePageData(event);
+    });
+  }
+
+  updatePageData(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.getMedicamentos();
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    console.log(`Mostrando elementos de ${startIndex} a ${endIndex}`);
+  }
+
   toggleSelectMed(medicamento: Medicamento) {
     this.medSeleccionado = medicamento;
     this.medSelected.emit(medicamento);
-    console.log(this.medSelected)
+    //console.log(this.medSelected)
     this.medicamentos = [medicamento];
     this.parentForm.get('nombre')?.disable();
     this.parentForm.get('laboratorio')?.disable();

@@ -36,6 +36,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -95,11 +97,13 @@ const icons = {
     MatFormFieldModule,
     NgxMatTimepickerModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ],
   providers: [
     provideAnimationsAsync(),
-    WindowService
+    WindowService,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   bootstrap: [AppComponent]
 

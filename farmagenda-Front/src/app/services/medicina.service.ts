@@ -12,11 +12,16 @@ export class MedicinaService {
 
   constructor(private http: HttpClient) { }
 
-  // Obtener listado de medicamentos filtrando por nombre de medicamento y/o del laboratorio
-  getMedicamentos(nombre: string, laboratorio: string): Observable<MedResponse> {
-    const url = `${this.baseUrl}/medicamentos?nombre=${nombre}&laboratorio=${laboratorio}`
+  // Obtener listado de medicamentos filtrando por nombre de medicamento y/o del laboratorio  
+  getMedicamentos(nombre: string, laboratorio: string, pagina: number): Observable<MedResponse> {
+    const url = `${this.baseUrl}/medicamentos?nombre=${nombre}&laboratorio=${laboratorio}&pagina=${pagina}`
     return this.http.get<MedResponse>(url);
   }
+
+  /*getMedicamentos(nombre: string, laboratorio: string): Observable<MedResponse> {
+    const url = `${this.baseUrl}/medicamentos?nombre=${nombre}&laboratorio=${laboratorio}`
+    return this.http.get<MedResponse>(url);
+  }*/
 
   // Obtener un medicamento mediante su número de registro
   getMedicamentoByNregistro(nregistro: string): Observable<Medicamento> {

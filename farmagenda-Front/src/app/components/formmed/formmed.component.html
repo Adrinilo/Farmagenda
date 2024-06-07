@@ -4,12 +4,12 @@
         <div class="flex flex-col gap-3 p-5 items-center">
             <label for="nombreMed">Introduzca el nombre del medicamento</label>
             <input type="text" name="nombreMed" (input)="onInputChange()" formControlName="nombre"
-                class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white">
         </div>
         <div class="flex flex-col gap-3 p-5 items-center">
             <label for="labMed">Introduzca el laboratorio del medicamento</label>
             <input type="text" name="labMed" (input)="onInputChange()" formControlName="laboratorio"
-                class="border border-black rounded p-1 w-2/3 lg:w-1/2">
+                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white">
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -34,6 +34,8 @@
                 *ngIf="isProspectosRoute()">CONSULTAR PROSPECTO</button>
         </div>
     </div>
+    <mat-paginator *ngIf="medicamentos.length > 0" [length]="totalLength" [pageSize]="pageSize" (page)="updatePageData($event)">
+    </mat-paginator>
     <div
         *ngIf="medicamentos.length <= 0 && (parentForm.get('nombre')?.value !== '' || parentForm.get('laboratorio')?.value !== '')">
         <h2 class="text-lg text-red-500">No se han encontrado medicamentos que concuerden con los parametros
