@@ -26,7 +26,7 @@ export class FormmedComponent {
 
   totalLength = this.medicamentosFull.length; // El número total de elementos
   pageSize = 25; // Tamaño de página por defecto
-  page = 1; // Tamaño de página inicial
+  page = 2; // Tamaño de página inicial
   pageSizeOptions: number[] = [4, 8, 16, 32];
   
   constructor(
@@ -71,7 +71,7 @@ export class FormmedComponent {
             ),
             fotos: resultado.fotos
               ? resultado.fotos.map((foto: any) => foto.url)
-              : [],
+              : ['../assets/img/pastillas-variadas.jpg'],
             docs: resultado.docs.length > 1 ? [resultado.docs[1]] : [],
           } as Medicamento;
 

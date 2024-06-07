@@ -1,24 +1,24 @@
 <div [formGroup]="parentForm" class="flex flex-col gap-10">
-    <h3 class="text-2xl">Selecciona el medicamento</h3>
+    <p class="text-3xl font-bold">Selecciona el medicamento</p>
     <div class="grid grid-cols-1 md:grid-cols-2 p-5 items-center">
         <div class="flex flex-col gap-3 p-5 items-center">
-            <label for="nombreMed">Introduzca el nombre del medicamento</label>
+            <label for="nombreMed" class="text-xl font-semibold">Introduzca el nombre del medicamento</label>
             <input type="text" name="nombreMed" (input)="onInputChange()" formControlName="nombre"
-                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white">
+                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white font-semibold text-xl">
         </div>
         <div class="flex flex-col gap-3 p-5 items-center">
-            <label for="labMed">Introduzca el laboratorio del medicamento</label>
+            <label for="labMed" class="text-xl font-semibold">Introduzca el laboratorio del medicamento</label>
             <input type="text" name="labMed" (input)="onInputChange()" formControlName="laboratorio"
-                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white">
+                class="border border-black rounded p-1 w-2/3 lg:w-1/2 bg-white font-semibold text-xl">
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div *ngFor="let medicamento of medicamentos"
-            class="p-4 m-2 text-xl text-slate-200 rounded-md bg-gray-500 border-black border-2 flex flex-col gap-5">
-            <p class="text-center">{{ medicamento.descripcion }}</p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+            class="p-4 m-2 text-xl font-medium text-slate-200 rounded-md bg-neutral-300 border-black border-2 flex flex-col gap-5">
+            <p class="text-center font-bold">{{ medicamento.descripcion }}</p>
+            <div [ngClass]="medicamento.fotos.length > 1 ? 'grid grid-cols-1 lg:grid-cols-2 gap-2' : ''">
                 <img src="{{foto}}" alt="{{medicamento.nombre}}_img" *ngFor="let foto of medicamento.fotos"
-                    class="w-full">
+                [ngClass]="medicamento.fotos.length > 1 ? 'w-full' : 'w-1/2 mx-auto'">
             </div>
             <p>Nombre: <span class="capitalize">{{ medicamento.nombre }}</span></p>
             <p>Dosis: {{ medicamento.dosis }}</p>
