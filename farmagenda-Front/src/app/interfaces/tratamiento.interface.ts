@@ -18,4 +18,5 @@ export interface Tratamiento {
     tomasDiarias: number;
     primeratoma: string;
     medicamento: Medicamento;
+    notas: string;
 }

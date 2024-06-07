@@ -55,6 +55,7 @@ export class TratamientosComponent implements OnInit {
       laboratorio: new FormControl(''),
       tomas: new FormControl(''),
       hora: new FormControl(''),
+      notas: new FormControl('')
     });
   }
 
@@ -71,6 +72,7 @@ export class TratamientosComponent implements OnInit {
             tomasDiarias: data.tomasDiarias,
             primeratoma: data.primeratoma,
             medicamento: createEmptyMedicamento(),
+            notas: data.notas
           } as Tratamiento;
 
           this.getMedicamento(data.id.idmedicamento).subscribe(
@@ -119,6 +121,7 @@ export class TratamientosComponent implements OnInit {
         tomasDiarias: this.parentForm.get('tomas')?.value,
         primeratoma: this.parentForm.get('hora')?.value,
         medicamento: createEmptyMedicamento(),
+        notas: this.parentForm.get('notas')?.value
       };
 
       this.getMedicamento(id.idmedicamento).subscribe((medicamento) => {
@@ -149,6 +152,7 @@ export class TratamientosComponent implements OnInit {
       tomasDiarias: this.parentForm.get('tomas')?.value,
       primeratoma: this.parentForm.get('hora')?.value,
       medicamento: this.medSeleccionado,
+      notas: this.parentForm.get('notas')?.value
     };
 
     this.tratamientoService
@@ -226,6 +230,7 @@ export class TratamientosComponent implements OnInit {
         laboratorio: '',
         tomas: '',
         hora: '',
+        notas: ''
       });
       localStorage.removeItem('medSelected'); // Retiramos el medicamento seleccionado
       this.buttonText = 'Añadir tratamiento';
@@ -251,6 +256,7 @@ export class TratamientosComponent implements OnInit {
       laboratorio: tratamiento.medicamento.labtitular,
       tomas: tratamiento.tomasDiarias,
       hora: tratamiento.primeratoma,
+      notas: tratamiento.notas
     });
     this.parentForm.get('nombre')?.disable();
     this.parentForm.get('laboratorio')?.disable();
@@ -262,7 +268,6 @@ export class TratamientosComponent implements OnInit {
   }
 
   onSubmit() {
-    localStorage.removeItem('medSelected');
     this.ttoUpdate.idpaciente != ''
       ? this.updateTratamiento()
       : this.addTratamiento();

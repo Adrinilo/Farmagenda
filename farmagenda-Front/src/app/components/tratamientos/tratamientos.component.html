@@ -14,6 +14,7 @@
                 class="w-full">
             <p>Tomas Diarias: {{ tratamiento.tomasDiarias }}</p>
             <p>Primera Toma: {{ tratamiento.primeratoma }}</p>
+            <p *ngIf="tratamiento.notas">Notas: {{ tratamiento.notas }}</p>
             <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl">Consultar
                 Prospecto</button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -28,7 +29,7 @@
     <form [formGroup]="parentForm" (ngSubmit)="onSubmit()" *ngIf="showForm" class="flex flex-col gap-10">
         <app-formmed [parentForm]="parentForm" (medSelected)="onMedSelected($event)"></app-formmed>
         <div class="flex flex-col md:flex-row gap-10">
-            <div class="md:w-1/2 flex flex-col">
+            <div class="md:w-1/3 flex flex-col">
                 <h3 class="text-2xl">Indique las tomas diarias</h3>
                 <!--<input name="intervaloSeleccionado" type="number" [(ngModel)]="intervaloSeleccionado" class="border-1">-->
                 <select formControlName="tomas" class="w-1/6 text-center">
@@ -38,12 +39,16 @@
                     <option [value]="4">4 Tomas</option>
                 </select>
             </div>
-            <div class="md:w-1/2">
+            <div class="md:w-1/3">
                 <h3 class="text-2xl">Indique la hora de la primera toma</h3>
                 <input name="horaSeleccionada" type="time" formControlName="hora">
             </div>
+            <div>
+                <h3 class="text-2xl">Inserte las notas que crea necesarias</h3>
+                <textarea matInput formControlName="notas" class="border border-black w-full"></textarea>
+            </div>
         </div>
-        <div class="flex flex-col items-end">
+            <div class="flex flex-col items-end">
             <button class="btn-select mt-auto w-1/4 uppercase" type="submit">{{buttonText}}</button>
         </div>
     </form>

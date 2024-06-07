@@ -32,6 +32,7 @@ import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optio
 import { ProspectoMostrarComponent } from './components/prospectomostrar/prospectomostrar.component';
 import { FormmedComponent } from './components/formmed/formmed.component';
 import { WindowService } from './services/window.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -87,7 +88,8 @@ const icons = {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [
     provideAnimationsAsync(),
