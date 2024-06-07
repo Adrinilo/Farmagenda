@@ -55,7 +55,7 @@ export class TratamientosComponent implements OnInit {
       laboratorio: new FormControl(''),
       tomas: new FormControl(''),
       hora: new FormControl(''),
-      notas: new FormControl('')
+      notas: new FormControl(''),
     });
   }
 
@@ -72,7 +72,7 @@ export class TratamientosComponent implements OnInit {
             tomasDiarias: data.tomasDiarias,
             primeratoma: data.primeratoma,
             medicamento: createEmptyMedicamento(),
-            notas: data.notas
+            notas: data.notas,
           } as Tratamiento;
 
           this.getMedicamento(data.id.idmedicamento).subscribe(
@@ -119,10 +119,12 @@ export class TratamientosComponent implements OnInit {
       const tratamiento: Tratamiento = {
         id: id,
         tomasDiarias: this.parentForm.get('tomas')?.value,
-        primeratoma: this.parentForm.get('hora')?.value,
+        primeratoma: this.convertTo24(this.parentForm.get('hora')?.value),
         medicamento: createEmptyMedicamento(),
-        notas: this.parentForm.get('notas')?.value
+        notas: this.parentForm.get('notas')?.value,
       };
+
+      console.log(tratamiento);
 
       this.getMedicamento(id.idmedicamento).subscribe((medicamento) => {
         tratamiento.medicamento = medicamento;
@@ -135,6 +137,7 @@ export class TratamientosComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al crear el tratamiento:', error);
+          this.openSnackBar('Error al crear el tratamiento');
         },
       });
     } else {
@@ -150,9 +153,9 @@ export class TratamientosComponent implements OnInit {
     const tratamiento: Tratamiento = {
       id: id,
       tomasDiarias: this.parentForm.get('tomas')?.value,
-      primeratoma: this.parentForm.get('hora')?.value,
+      primeratoma: this.convertTo24(this.parentForm.get('hora')?.value),
       medicamento: this.medSeleccionado,
-      notas: this.parentForm.get('notas')?.value
+      notas: this.parentForm.get('notas')?.value,
     };
 
     this.tratamientoService
@@ -167,7 +170,6 @@ export class TratamientosComponent implements OnInit {
         },
       });
   }
-
 
   onDelete(tratamiento: Tratamiento): void {
     this.tratamientoService.deleteTratamiento(tratamiento.id).subscribe({
@@ -230,7 +232,7 @@ export class TratamientosComponent implements OnInit {
         laboratorio: '',
         tomas: '',
         hora: '',
-        notas: ''
+        notas: '',
       });
       localStorage.removeItem('medSelected'); // Retiramos el medicamento seleccionado
       this.buttonText = 'Añadir tratamiento';
@@ -250,13 +252,16 @@ export class TratamientosComponent implements OnInit {
   toggleEdit(tratamiento: Tratamiento) {
     this.medSeleccionado = tratamiento.medicamento;
     //this.medicamentos = [this.medSeleccionado];
-    localStorage.setItem('medSelected', JSON.stringify(tratamiento.medicamento));
+    localStorage.setItem(
+      'medSelected',
+      JSON.stringify(tratamiento.medicamento)
+    );
     this.parentForm.setValue({
       nombre: tratamiento.medicamento.nombre,
       laboratorio: tratamiento.medicamento.labtitular,
       tomas: tratamiento.tomasDiarias,
-      hora: tratamiento.primeratoma,
-      notas: tratamiento.notas
+      hora: this.convertTo12(tratamiento.primeratoma),
+      notas: tratamiento.notas,
     });
     this.parentForm.get('nombre')?.disable();
     this.parentForm.get('laboratorio')?.disable();
@@ -283,5 +288,44 @@ export class TratamientosComponent implements OnInit {
 
   set medResponse(valor: MedResponse) {
     this._medResponse = valor;
+  }
+
+  convertTo24(formato12Horas: string): string {
+    // Extraer el período AM o PM
+    const [horaMinutos, periodo] = formato12Horas.split(' ');
+    // Dividir la hora y los minutos
+    let [horas, minutos] = horaMinutos.split(':').map(Number);
+
+    // Convertir a formato de 24 horas
+    if (periodo === 'PM' && horas !== 12) {
+      horas += 12;
+    } else if (periodo === 'AM' && horas === 12) {
+      horas = 0;
+    }
+
+    // Asegurar que las horas y minutos tienen dos dígitos
+    const horas24 = horas.toString().padStart(2, '0');
+    const minutos24 = minutos.toString().padStart(2, '0');
+
+    // Formatear la salida con segundos
+    return `${horas24}:${minutos24}:00`;
+  }
+
+  convertTo12(formato24Horas: string): string {
+    // Dividir la hora y los minutos
+    let [horas, minutos, segundos] = formato24Horas.split(':').map(Number);
+
+    // Determinar el período AM o PM
+    const periodo = horas >= 12 ? 'PM' : 'AM';
+
+    // Convertir las horas a formato de 12 horas
+    horas = horas % 12 || 12; // 0 o 12 horas se convierte a 12 horas en formato de 12 horas
+
+    // Asegurar que las horas y minutos tienen dos dígitos
+    const horas12 = horas.toString().padStart(2, '0');
+    const minutos12 = minutos.toString().padStart(2, '0');
+
+    // Formatear la salida
+    return `${horas12}:${minutos12} ${periodo}`;
   }
 }

@@ -32,7 +32,10 @@ import { OptionsDialogComponent } from './components/dialogs/optionsdialog/optio
 import { ProspectoMostrarComponent } from './components/prospectomostrar/prospectomostrar.component';
 import { FormmedComponent } from './components/formmed/formmed.component';
 import { WindowService } from './services/window.service';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -89,7 +92,10 @@ const icons = {
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxMatTimepickerModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [
     provideAnimationsAsync(),

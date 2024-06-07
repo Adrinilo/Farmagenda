@@ -15,7 +15,7 @@
             <p>Tomas Diarias: {{ tratamiento.tomasDiarias }}</p>
             <p>Primera Toma: {{ tratamiento.primeratoma }}</p>
             <p *ngIf="tratamiento.notas">Notas: {{ tratamiento.notas }}</p>
-            <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl">Consultar
+            <button (click)="consultar(tratamiento.medicamento)" class="btn-consulta text-xl mt-auto">Consultar
                 Prospecto</button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <button (click)="toggleEdit(tratamiento)" class="btn-editar">Editar</button>
@@ -41,7 +41,18 @@
             </div>
             <div class="md:w-1/3">
                 <h3 class="text-2xl">Indique la hora de la primera toma</h3>
-                <input name="horaSeleccionada" type="time" formControlName="hora">
+                <mat-form-field>
+                    <input matInput
+                           name="horaSeleccionada"
+                           formControlName="hora"
+                           [ngxMatTimepicker]="miTimepicker"
+                           placeholder="16:00"
+                           readonly />
+                    <mat-icon matSuffix (click)="miTimepicker.open()">
+                        watch_later
+                    </mat-icon>
+                </mat-form-field>
+                <ngx-mat-timepicker #miTimepicker [format]="24"></ngx-mat-timepicker>
             </div>
             <div>
                 <h3 class="text-2xl">Inserte las notas que crea necesarias</h3>

@@ -1,35 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-
-.mat-mdc-dialog-container .mdc-dialog__surface {
-    background-color: white !important;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.dialog-custom .mat-mdc-dialog-component-host h2,p {
-    color: black;
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: white !important;
+}
+
+.dialog-custom .mat-mdc-dialog-component-host h2,
+p {
+  color: black;
 }
 
 .dialog-custom .mat-mdc-dialog-component-host .mdc-dialog__actions {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    justify-items: center;
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  justify-items: center;
+  gap: 10px;
 }
 
 .dialog-custom .mat-mdc-dialog-component-host .mdc-dialog__actions button {
-    width: 100%;
-    margin: 0;
+  width: 100%;
+  margin: 0;
 }
 
 @media (min-width: 768px) {
-    .dialog-custom .mat-mdc-dialog-component-host .mdc-dialog__actions {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .dialog-custom .mat-mdc-dialog-component-host .mdc-dialog__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-  
+
+.mdc-text-field {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mdc-text-field__input {
+  color: black !important;
+}
+
+.mat-mdc-text-field-wrapper {
+    border: 1px solid black;
+}
+
+.mdc-text-field--filled {
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+
+.mdc-button__label {
+    color: black;
+}
