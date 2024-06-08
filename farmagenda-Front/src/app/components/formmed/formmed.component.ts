@@ -26,7 +26,7 @@ export class FormmedComponent {
 
   totalLength = this.medicamentosFull.length; // El número total de elementos
   pageSize = 25; // Tamaño de página por defecto
-  page = 2; // Tamaño de página inicial
+  page = 1; // Tamaño de página inicial
   pageSizeOptions: number[] = [4, 8, 16, 32];
   
   constructor(
