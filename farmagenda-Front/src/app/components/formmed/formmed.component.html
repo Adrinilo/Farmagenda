@@ -34,7 +34,7 @@
                 *ngIf="isProspectosRoute()">CONSULTAR PROSPECTO</button>
         </div>
     </div>
-    <mat-paginator *ngIf="medicamentos.length > 0" [length]="totalLength" [pageSize]="pageSize" (page)="updatePageData($event)">
+    <mat-paginator *ngIf="medicamentos.length > 1" [length]="totalLength" [pageSize]="pageSize" (page)="updatePageData($event)">
     </mat-paginator>
     <div
         *ngIf="medicamentos.length <= 0 && (parentForm.get('nombre')?.value !== '' || parentForm.get('laboratorio')?.value !== '')">
