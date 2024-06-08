@@ -14,6 +14,14 @@ body {
   background-color: white !important;
 }
 
+.grid .mdc-button__label {
+  color: white !important;
+}
+
+button:hover .mdc-button__label {
+  color: white !important;
+}
+
 .dialog-custom .mat-mdc-dialog-component-host h2,
 p {
   color: black;
